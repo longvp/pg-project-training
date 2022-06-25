@@ -1,0 +1,55 @@
+@import './variable';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size  : 14px;
+    background-color: $bgPurpleDark;
+}
+
+img {
+    display  : block;
+    max-width: 100%;
+}
+
+input,
+button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+button,
+a {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $purpleLight;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: $black;
+    border-radius: 3px;
+}

@@ -1,0 +1,115 @@
+@import '../../../../../scss/variable';
+
+.sidebar-container{
+    width: $sidebarWidth;
+    height: calc(100% - #{$headerHeight});
+    position: fixed;
+    left: 0;
+    z-index: 10;
+    background-color: $primaryColor;
+    overflow-y: auto;
+    transition: width 0.5s;
+
+    &.sidebar-container-toggle{
+        width: $sidebarWidthToggle;
+    }
+
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+    
+    &::-webkit-scrollbar {
+        height: 10px;
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $black;
+        cursor: pointer;
+        border-radius: 0.15625rem;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $primaryColor;
+        border-radius: 3px;
+    }
+}
+
+.list-main-menu{
+    .item-main-menu{
+        border-bottom: 1px solid $bgPurpleDark;
+        padding: 15px 20px 15px 30px;
+        cursor: pointer;
+        &:hover{
+            .text-main-menu{
+                transition: 0.5s;
+                color: $purpleLight;
+            }
+        }
+        &:last-child{
+            border: none;
+        }
+        .text-main-menu{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            .left{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                .text-main{
+                    &.hide{
+                        display: none;
+                        transition: 0.5s;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.list-sub-menu{
+    display: none;
+    &.show{
+        display: block;
+    }
+    &.hide{
+        display: none !important;
+    }
+    .item-sub-menu{
+        border-top: 1px solid $bgPurpleDark;
+        padding: 15px 0 0 30px;
+        margin-top: 10px;
+        cursor: pointer;
+        &:hover{
+            .text-sub-menu{
+                color: $purpleLight;
+                transition: 0.5s;
+            }
+        }
+        .text-sub-menu{
+            color: white;
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .sidebar-container{
+        width: $sidebarWidthToggle;
+    }
+    .list-main-menu{
+        .item-main-menu{
+            .left{
+                .text-main{
+                    display: none;
+                }
+            }
+        }
+    }
+    .list-sub-menu{
+        .item-sub-menu{
+            padding: 15px 0 0 0;
+        }
+    }
+}

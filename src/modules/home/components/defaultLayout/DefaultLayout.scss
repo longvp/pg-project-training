@@ -1,0 +1,24 @@
+@import '../../../../scss/variable';
+
+.wrapper {
+    .body{
+        margin-top: $headerHeight;
+    }
+    .content{
+        margin-left: $sidebarWidth;
+        min-width: calc(100% - $sidebarWidth);
+        min-height: 90vh;
+        transition: margin-left 0.5s;
+        &.content-toggle{
+            margin-left: $sidebarWidthToggle;
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .wrapper{
+        .content{
+            margin-left: $sidebarWidthToggle;
+        }
+    }
+}

@@ -1,0 +1,143 @@
+@import '../../../../../scss/variable';
+
+.header-container{
+    height: $headerHeight;
+    padding: 20px;
+    background-color: $primaryColor;
+    color: white;
+    box-shadow: 0 0.5rem 1rem 0 #1a1f33;
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.header-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list{
+    background-color: white;
+    min-width: 250px;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.header-left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    .icon{
+        font-size: 14px;
+    }
+    .icon-bars{
+        cursor: pointer;
+        font-size: 20px;
+        color: #b4b4db;
+        &:hover{
+            color: white;
+        }
+    }
+    .logo-text{
+        color: white;
+        font-size: 25px;
+        text-transform: capitalize;
+    }
+    .notify{
+        position: relative;
+         &:hover{
+            .notify-list{
+                transition: 1s;
+                display: block;
+            }
+        }
+        .notify-list{
+            position: absolute;
+            display: none;
+            &::before{
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 10px;
+                background-color: transparent;
+                top: -10px;
+                left: 0;
+            }
+            .notify-item{
+                &:last-child{
+                    margin-bottom: 0;
+                }
+                margin-bottom: 5px;
+                color: $black;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                .icon{
+                    font-size: 12px;
+                }
+                .notify-link{
+                    display: inline-block;
+                    color: $blue;
+                    min-width: 160px;
+                    margin: 0 15px;
+                }
+                .notify-number{
+                    color: $orange;
+                    font-weight: 500;
+                    float: right !important;
+                }
+            }
+        }
+    }
+}
+
+.header-right{
+    .user{
+        position: relative;
+        &:hover{
+            .action-list{
+                display: block;
+            }
+        }
+        .icon{
+            font-size: 18px;
+        }
+        .action-list{
+            display: none;
+            position: absolute;
+            right: 5px;
+            &::before{
+                position: absolute;
+                content: '';
+                width: 100%;
+                height: 20px;
+                background-color: transparent;
+                top: -10px;
+
+            }
+            .action-item{
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 5px;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+                .action-link{
+                    display: inline-block;
+                    color: $black;
+                    cursor: pointer;
+                    &:hover{
+                        color: $blue;
+                    }
+                }
+                .email-user{
+                    color: gray;
+                }
+            }
+        }
+    }
+}
