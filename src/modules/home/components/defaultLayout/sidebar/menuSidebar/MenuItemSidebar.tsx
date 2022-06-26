@@ -1,14 +1,18 @@
 import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { AppState } from '../../../../../../redux/reducer'
 
 interface Props {
-  isToggleSidebar: boolean
   menuItem: any
 }
 
 const MenuItemSidebar = (props: Props) => {
-  const { isToggleSidebar, menuItem } = props
+  const { menuItem } = props
+  const { isToggleSidebar } = useSelector((state: AppState) => ({
+    isToggleSidebar: state.home.isToggleSidebar,
+  }))
   const [isShowSubMenu, setIsShowSubMenu] = React.useState<boolean>(false)
   return (
     <>

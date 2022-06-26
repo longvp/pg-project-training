@@ -1,13 +1,4 @@
-import {
-  faArrowRightFromBracket,
-  faBars,
-  faCircleArrowDown,
-  faEnvelope,
-  faEye,
-  faTriangleExclamation,
-  faUser,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCircleArrowDown, faEnvelope, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
@@ -23,32 +14,33 @@ import { Action } from 'redux'
 import { removeUserInfo } from '../../../../auth/redux/authReducer'
 import _ from 'lodash'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
+import { setToggleSidebar } from '../../../redux/homeReducer'
+import Modal from '../../modal/Modal'
+import { setShowModal } from './../../../redux/homeReducer'
 
-interface Props {
-  isToggleSidebar: boolean
-  handleToggleSidebar(toggle: boolean): void
-}
+interface Props {}
 
 function Header(props: Props) {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
   const history = useHistory()
 
-  const { isToggleSidebar, handleToggleSidebar } = props
-
-  const [showMenu, setShowMenu] = React.useState<boolean>(false)
-
-  const { user } = useSelector((state: AppState) => ({
+  const { user, isShowModal } = useSelector((state: AppState) => ({
     user: state.profile.user,
+    isShowModal: state.home.isShowModal,
   }))
+
+  const handleToggleSidebar = () => {
+    dispatch(setToggleSidebar())
+  }
+
+  const logOutShowModal = () => {
+    dispatch(setShowModal(true))
+  }
 
   const handleLogOut = () => {
     dispatch(removeUserInfo())
     Cookies.remove(ACCESS_TOKEN_KEY)
     dispatch(replace(ROUTES.login))
-  }
-
-  const redirectToProfilePage = () => {
-    history.push('/profile')
   }
 
   return (
@@ -60,11 +52,7 @@ function Header(props: Props) {
               <div className="header-content">
                 <div className="header-left">
                   {/* TOGGLE SIDEBAR */}
-                  <FontAwesomeIcon
-                    className="icon icon-bars"
-                    icon={faBars}
-                    onClick={() => handleToggleSidebar(!isToggleSidebar)}
-                  />
+                  <FontAwesomeIcon className="icon icon-bars" icon={faBars} onClick={() => handleToggleSidebar()} />
                   <a href="#" className="logo-text">
                     Gear Focus Admin
                   </a>
@@ -97,9 +85,9 @@ function Header(props: Props) {
                         <a href="#" className="action-link">
                           My profile
                         </a>
-                        <span className="email-user">admin.training@powergatesoftware.com</span>
+                        <span className="email-user">{user && user?.login}</span>
                       </li>
-                      <li className="action-item" onClick={() => handleLogOut()}>
+                      <li className="action-item" onClick={() => logOutShowModal()}>
                         <span className="action-link">Log out</span>
                       </li>
                     </ul>
@@ -110,6 +98,7 @@ function Header(props: Props) {
           </div>
         </div>
       </div>
+      {isShowModal && <Modal title="Log out" text="Are you sure want to log out" handleAction={handleLogOut} />}
     </>
   )
 }

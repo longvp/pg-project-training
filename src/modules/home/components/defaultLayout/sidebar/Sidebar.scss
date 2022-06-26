@@ -8,6 +8,7 @@
     z-index: 10;
     background-color: $primaryColor;
     overflow-y: auto;
+    overflow-x: hidden;
     transition: width 0.5s;
 
     &.sidebar-container-toggle{

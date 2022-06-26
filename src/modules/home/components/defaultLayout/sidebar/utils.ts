@@ -10,5 +10,33 @@ export const MENU_SIDEBAR = [
   {
     iconModel: faUserGroup,
     name: 'User',
+    sub_menus: [
+      { name: 'User list', link: '' },
+      { name: 'User list', link: '' },
+    ],
+  },
+  {
+    iconModel: faUserGroup,
+    name: 'User',
+    sub_menus: [
+      { name: 'User list', link: '' },
+      { name: 'User list', link: '' },
+    ],
+  },
+  {
+    iconModel: faUserGroup,
+    name: 'User',
+    sub_menus: [
+      { name: 'User list', link: '' },
+      { name: 'User list', link: '' },
+    ],
+  },
+  {
+    iconModel: faUserGroup,
+    name: 'User',
+    sub_menus: [
+      { name: 'User list', link: '' },
+      { name: 'User list', link: '' },
+    ],
   },
 ]
