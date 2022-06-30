@@ -1,0 +1,25 @@
+@import '../../../../../scss/variable';
+
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: $primaryColor;
+    position: fixed;
+    bottom: 5px;
+    right: 36px;
+    left: calc(#{$sidebarWidth} + #{$paddingcontentPage});
+    z-index: 10;
+    box-shadow: 0 0 13px 0 #b18aff;
+    padding: 15px 36px;
+    transition: all 0.5s;
+    &.footer-toggle{
+        left: calc(#{$sidebarWidthToggle} + #{$paddingcontentPage});
+    }
+}
+
+@media screen and (max-width: 1200px) {
+   .footer{
+        left: calc(#{$sidebarWidthToggle} + #{$paddingcontentPage});
+    }
+}

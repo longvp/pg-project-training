@@ -1,16 +1,16 @@
 import { ActionType, createCustomAction, getType } from 'typesafe-actions'
-import { AuthToken, IUser } from '../../../models/user'
+import { AuthToken, IUserLogin } from '../../../models/user'
 
 export interface AuthState {
   auth?: AuthToken
-  user?: IUser
+  user?: IUserLogin
 }
 
 export const setAuthorization = createCustomAction('auth/setAuthorization', (data: AuthToken) => ({
   data,
 }))
 
-export const setUserInfo = createCustomAction('auth/setUserInfo', (data: IUser) => ({
+export const setUserInfo = createCustomAction('auth/setUserInfo', (data: IUserLogin) => ({
   data,
 }))
 

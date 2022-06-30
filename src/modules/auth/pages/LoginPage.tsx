@@ -12,6 +12,7 @@ import { ACCESS_TOKEN_KEY } from '../../../utils/constants'
 import { setUserInfo } from '../redux/authReducer'
 import { fetchThunk } from '../../common/redux/thunk'
 import LoginForm from '../components/LoginForm'
+import { Redirect } from 'react-router'
 
 function LoginPage() {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
@@ -37,12 +38,22 @@ function LoginPage() {
     [dispatch],
   )
 
-  React.useEffect(() => {
-    const accessToken = Cookies.get(ACCESS_TOKEN_KEY)
-    if (accessToken) {
-      dispatch(replace(ROUTES.home))
-    }
-  }, [])
+  const accessToken = Cookies.get(ACCESS_TOKEN_KEY)
+  if (accessToken) {
+    return (
+      <Redirect
+        to={{
+          pathname: ROUTES.home,
+        }}
+      />
+    )
+  }
+
+  // React.useEffect(() => {
+  //   if (accessToken) {
+  //     dispatch(replace(ROUTES.home))
+  //   }
+  // }, [])
 
   return (
     <>

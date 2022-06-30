@@ -2,13 +2,14 @@ import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { AppState } from '../../../../../../redux/reducer'
 
 interface Props {
   menuItem: any
 }
 
-const MenuItemSidebar = (props: Props) => {
+const MenuMainItemSidebar = (props: Props) => {
   const { menuItem } = props
   const { isToggleSidebar } = useSelector((state: AppState) => ({
     isToggleSidebar: state.home.isToggleSidebar,
@@ -29,9 +30,9 @@ const MenuItemSidebar = (props: Props) => {
           menuItem.sub_menus.map((sub: any, index: number) => (
             <ul key={index} className={`list-sub-menu ${isShowSubMenu ? 'show' : ''} ${isToggleSidebar ? 'hide' : ''}`}>
               <li className="item-sub-menu">
-                <a href={sub.link} className="text-sub-menu">
+                <NavLink activeClassName="active" to={sub.link} className="text-sub-menu">
                   {sub.name}
-                </a>
+                </NavLink>
               </li>
             </ul>
           ))}
@@ -40,4 +41,4 @@ const MenuItemSidebar = (props: Props) => {
   )
 }
 
-export default MenuItemSidebar
+export default MenuMainItemSidebar

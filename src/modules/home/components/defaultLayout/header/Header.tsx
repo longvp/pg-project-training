@@ -14,7 +14,7 @@ import { Action } from 'redux'
 import { removeUserInfo } from '../../../../auth/redux/authReducer'
 import _ from 'lodash'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
-import { setToggleSidebar } from '../../../redux/homeReducer'
+import { setModalContent, setToggleSidebar } from '../../../redux/homeReducer'
 import Modal from '../../modal/Modal'
 import { setShowModal } from './../../../redux/homeReducer'
 
@@ -33,14 +33,21 @@ function Header(props: Props) {
     dispatch(setToggleSidebar())
   }
 
-  const logOutShowModal = () => {
-    dispatch(setShowModal(true))
-  }
-
   const handleLogOut = () => {
     dispatch(removeUserInfo())
     Cookies.remove(ACCESS_TOKEN_KEY)
     dispatch(replace(ROUTES.login))
+  }
+
+  const showModal = () => {
+    dispatch(
+      setModalContent({
+        title: 'Log out',
+        text: 'Are you sure want to log out ?',
+        handleAction: handleLogOut,
+      }),
+    )
+    dispatch(setShowModal(true))
   }
 
   return (
@@ -87,7 +94,7 @@ function Header(props: Props) {
                         </a>
                         <span className="email-user">{user && user?.login}</span>
                       </li>
-                      <li className="action-item" onClick={() => logOutShowModal()}>
+                      <li className="action-item" onClick={() => showModal()}>
                         <span className="action-link">Log out</span>
                       </li>
                     </ul>
@@ -98,7 +105,7 @@ function Header(props: Props) {
           </div>
         </div>
       </div>
-      {isShowModal && <Modal title="Log out" text="Are you sure want to log out" handleAction={handleLogOut} />}
+      {isShowModal && <Modal />}
     </>
   )
 }

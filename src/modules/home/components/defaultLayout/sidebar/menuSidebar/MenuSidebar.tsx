@@ -1,6 +1,6 @@
 import React from 'react'
 import { MENU_SIDEBAR } from '../utils'
-import MenuItemSidebar from './MenuItemSidebar'
+import MenuMainItemSidebar from './MenuMainItemSidebar'
 
 interface Props {}
 
@@ -10,7 +10,7 @@ const MenuSidebar = (props: Props) => {
       {MENU_SIDEBAR && MENU_SIDEBAR.length > 0 && (
         <ul className="list-main-menu">
           {MENU_SIDEBAR.map((menuItem, index) => (
-            <MenuItemSidebar key={index} menuItem={menuItem} />
+            <MenuMainItemSidebar key={index} menuItem={menuItem} />
           ))}
         </ul>
       )}

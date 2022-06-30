@@ -1,0 +1,29 @@
+@import '../../../../scss/variable';
+
+.form-add{
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    label{
+        display: block;
+        width: 200px;
+        text-align: right;
+        .required{
+            margin-left: 5px;
+            color: red;
+        }
+    }
+    input{
+        border: 1px solid $black;
+        background-color: $bgInput;
+        padding: 7px 16px;
+        border-radius: 5px;
+        color: white;
+        &:focus{
+            transition: 0.5s;
+            background-color: $primaryColor;
+            border: 1px solid $purpleLight;
+        }
+    }
+}

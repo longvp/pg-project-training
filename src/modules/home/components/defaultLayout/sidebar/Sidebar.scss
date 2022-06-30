@@ -36,6 +36,7 @@
     }
 }
 
+// MAIN MENU
 .list-main-menu{
     .item-main-menu{
         border-bottom: 1px solid $bgPurpleDark;
@@ -60,6 +61,7 @@
                 align-items: center;
                 gap: 10px;
                 .text-main{
+                    text-transform: capitalize;
                     &.hide{
                         display: none;
                         transition: 0.5s;
@@ -70,6 +72,7 @@
     }
 }
 
+// SUB MENU
 .list-sub-menu{
     display: none;
     &.show{
@@ -82,7 +85,6 @@
         border-top: 1px solid $bgPurpleDark;
         padding: 15px 0 0 30px;
         margin-top: 10px;
-        cursor: pointer;
         &:hover{
             .text-sub-menu{
                 color: $purpleLight;
@@ -91,6 +93,10 @@
         }
         .text-sub-menu{
             color: white;
+            text-transform: capitalize;
+            &.active{
+                color: $purpleLight;
+            }
         }
     }
 }

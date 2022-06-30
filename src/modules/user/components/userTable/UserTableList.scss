@@ -1,0 +1,65 @@
+@import '../../../../scss/variable';
+
+.table-container{
+    overflow-x: auto !important;
+    width: 100%;
+}
+
+.table-list{
+    background-color: $primaryColor;
+    border: 1px solid $black;
+    min-width: 1500px;
+    
+    thead, tbody{
+        display: table-row-group;
+    }
+
+    tr{
+        display: table-row;
+        text-align: left;
+    }
+
+    thead {
+        th{
+            display: table-cell;
+            padding: 15px 20px;
+            font-size: 15px;
+            button{
+                color: white;
+                font-weight: bold;
+            }
+            .icon{
+                font-size: 12px;
+                margin-left: 5px;
+            }
+        }
+    }
+
+    tbody{
+        tr{
+            &.isSelectedDelete{
+               opacity: 0.5;
+            }
+        }
+        td{
+            display: table-cell;
+            padding: 15px 20px;
+            border-top: 1px solid $black;
+            .link{
+                color: $blue;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+        .icon-delete{
+            background-color: $purpleLight;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            &:hover{
+                color: $black;
+            }
+        }
+    }
+}

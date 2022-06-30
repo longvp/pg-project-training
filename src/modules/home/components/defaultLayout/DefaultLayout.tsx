@@ -24,7 +24,6 @@ const DefaulLayout = (props: Props) => {
           <div className={`content ${isToggleSidebar ? 'content-toggle' : ''}`}>{props.children}</div>
         </div>
       </div>
-      {/* <Modal /> */}
     </>
   )
 }

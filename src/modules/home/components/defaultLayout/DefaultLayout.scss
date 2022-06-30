@@ -6,9 +6,12 @@
     }
     .content{
         margin-left: $sidebarWidth;
-        min-width: calc(100% - $sidebarWidth);
-        min-height: 90vh;
+        min-width: calc(100% - #{$sidebarWidth});
+        min-height: 86vh;
         transition: margin-left 0.5s;
+        color: white;
+        padding: $paddingcontentPage;
+        padding-bottom: 80px;
         &.content-toggle{
             margin-left: $sidebarWidthToggle;
         }

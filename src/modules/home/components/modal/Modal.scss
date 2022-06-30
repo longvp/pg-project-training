@@ -56,6 +56,7 @@
                 color: white;
                 font-weight: bold;
                 border-radius: 5px;
+                cursor: pointer;
                 &.yes{
                     background-image: linear-gradient(90deg,#b18aff,#a16eff);
                     box-shadow: 0 0 0 0 #7b51db, 0 0 0 0 #5a37b8, 0 0 transparent;
