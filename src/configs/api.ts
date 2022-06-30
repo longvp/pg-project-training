@@ -30,9 +30,10 @@ function getBaseUrl(service: APIService) {
 export const API_PATHS = {
   signIn: `${getBaseUrl(APIService.auth)}/login`,
   userProfile: `${getBaseUrl(APIService.public)}/user`,
-  userList: `${getBaseUrl(APIService.apiAdmin)}/users/list`,
   countryList: `${getBaseUrl(APIService.apiAdmin)}/commons/country`,
   roleList: `${getBaseUrl(APIService.apiAdmin)}/commons/role`,
+  userList: `${getBaseUrl(APIService.apiAdmin)}/users/list`,
   userDelete: `${getBaseUrl(APIService.apiAdmin)}/users/edit`,
+  userCreate: `${getBaseUrl(APIService.apiAdmin)}/users/create`,
   userEdit: `${getBaseUrl(APIService.apiAdmin)}/users/edit`,
 }

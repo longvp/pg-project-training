@@ -11,7 +11,6 @@ import { IFilterFieldUser } from '../../../../models/user'
 import { setFilterFieldUser } from '../../redux/userReducer'
 import { ICountry } from './../../../../models/country'
 import { IRole } from '../../../../models/role'
-import { MEMBERSHIP_OPTION, STATUS_OPTIONS } from '../../utils'
 import { IOption } from '../../../../models/option'
 
 const UserFilter = () => {
@@ -62,6 +61,10 @@ const UserFilter = () => {
   }, [filterFieldUser])
 
   // ---------------------- MEMBERSHIP OPTION -------------------------------------------
+  const MEMBERSHIP_OPTION = [
+    { label: 'Memberships', value: 'M_4' },
+    { label: 'Pending Memberships', value: 'P_4' },
+  ]
 
   // ---------------------- ROLE OPTION --------------------------------------
   const [roleOptions, setRoleOptions] = React.useState<IOption[]>([])
@@ -83,6 +86,13 @@ const UserFilter = () => {
   }, [roleList])
 
   // ---------------------- STATUS OPTION -------------------------------------------
+  const STATUS_OPTIONS = [
+    { label: 'Any status', value: '' },
+    { label: 'Enable', value: 'E' },
+    { label: 'Disable', value: 'D' },
+    { label: 'Unapproved vendor', value: 'U' },
+  ]
+
   const [statusSelected, setStatusSelected] = React.useState<SingleValue<IOption>>({
     label: STATUS_OPTIONS[0].label,
     value: STATUS_OPTIONS[0].value,
@@ -161,7 +171,7 @@ const UserFilter = () => {
         <div className="filter-show">
           <input
             type="text"
-            className="input-filter"
+            className="input-field"
             placeholder="Search keywords"
             name="search"
             value={filterField.search}
@@ -173,8 +183,6 @@ const UserFilter = () => {
             options={MEMBERSHIP_OPTION}
             onChange={(e) => handleChangeMembershipSelect(e)}
             isMulti
-            className="select-filter"
-            classNamePrefix="select"
           />
           {/* ROLE */}
           <Select
@@ -182,8 +190,6 @@ const UserFilter = () => {
             options={roleOptions}
             onChange={(e) => handleChangeRoleSelect(e)}
             isMulti
-            className="select-filter"
-            classNamePrefix="select"
           />
           {/* STATUS */}
           <Select
@@ -191,8 +197,6 @@ const UserFilter = () => {
             value={statusSelected}
             options={STATUS_OPTIONS}
             onChange={(e) => handleChangeStatusSelect(e)}
-            className="select-filter"
-            classNamePrefix="select"
           />
           <button type="button" className="btn-search" onClick={() => handleSearch()}>
             Search
@@ -209,13 +213,11 @@ const UserFilter = () => {
               value={countrySelected}
               options={countryOptions}
               onChange={(e) => handleChangeCountrySelect(e)}
-              className="select-filter"
-              classNamePrefix="select"
             />
             {/* STATE */}
             <input
               type="text"
-              className="input-filter"
+              className="input-field"
               placeholder="State"
               name="state"
               value={filterField.state}
@@ -224,7 +226,7 @@ const UserFilter = () => {
             {/* ADDRESS */}
             <input
               type="text"
-              className="input-filter"
+              className="input-field"
               placeholder="Address"
               name="address"
               value={filterField.address}
@@ -233,7 +235,7 @@ const UserFilter = () => {
             {/* PHONE */}
             <input
               type="text"
-              className="input-filter"
+              className="input-field"
               placeholder="Phone"
               name="phone"
               value={filterField.phone}
@@ -265,7 +267,7 @@ const UserFilter = () => {
             </div>
             <div className="filter-date">
               <label>Enter range date</label>
-              <input type="date" className="input-filter" />
+              <input type="date" className="input-field" />
             </div>
           </div>
         </div>

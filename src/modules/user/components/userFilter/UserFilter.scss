@@ -1,67 +1,5 @@
 @import '../../../../scss/variable';
 
-.input-filter{
-    background-color: $bgInput;
-    border: 1px solid $black;
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: white;
-    &::placeholder{
-        color: $colorPlaceholder;
-    }
-}
-
-.select-filter{
-    .css-14el2xx-placeholder{
-        color: white;
-        font-weight: bold;
-    }
-    .css-1s2u09g-control{
-        background-color: $bgInput;
-        border-color: $bgPurpleDark;
-        &:hover{
-             border-color: $bgPurpleDark;
-        }
-    }
-    .css-1pahdxg-control{
-        background-color: $bgInput;
-        border-color: $bgPurpleDark;
-        box-shadow: none;
-        &:hover{
-            border-color: $bgPurpleDark;
-        }
-    }
-    .css-1gtu0rj-indicatorContainer{
-        color: white;
-        &:hover{
-            color: white;
-        }
-    }
-    // ---------
-    .css-4ljt47-MenuList{
-        padding: 0;
-    }
-    .css-26l3qy-menu{
-        background-color: $primaryColor;
-        box-shadow: none;
-        border: 1px solid $bgPurpleDark;
-        padding: 0;
-    }
-    .css-1n7v3ny-option{
-        background-color: rgba(180,180,219,.16);
-    }
-    .css-yt9ioa-option{
-        background-color: $primaryColor;
-    }
-
-    .css-qc6sy-singleValue{
-        color: white;
-    }
-    .css-9gakcf-option{
-        background-color: $purpleLight;
-    }
-}
-
 .filter{
     padding: 20px;
     position: relative;
@@ -87,7 +25,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    //flex-wrap: wrap;
     .btn-search{
         display: block;
         color: white;

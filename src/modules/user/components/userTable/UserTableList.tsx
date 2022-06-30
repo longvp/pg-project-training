@@ -4,18 +4,24 @@ import UserTableItem from './UserTableItem'
 import './UserTableList.scss'
 import { AppState } from './../../../../redux/reducer'
 import { IUser } from './../../../../models/user'
-import { SORT_OPTION_THEAD } from '../../utils'
 import { IOption } from './../../../../models/option'
 import UserTableThead from './UserTableThead'
 
 const UserTableList = () => {
+  const SORT_OPTION_THEAD = [
+    { label: 'Login/Email', value: 'vendor' },
+    { label: 'Name', value: 'fistName' },
+    { label: 'Access Level', value: 'access_level' },
+    { label: 'Products', value: '' },
+    { label: 'Orders', value: '' },
+    { label: 'Wishlist', value: '' },
+    { label: 'Created', value: 'created' },
+    { label: 'Last Login', value: 'last_login' },
+  ]
+
   const { userList } = useSelector((state: AppState) => ({
     userList: state.user.userList,
   }))
-
-  const handleSort = (e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>) => {
-    console.log('e: ', e)
-  }
 
   return (
     <>

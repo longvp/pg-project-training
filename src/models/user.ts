@@ -1,5 +1,3 @@
-import { number } from 'yup'
-
 export interface AuthToken {
   accessToken: string
   expiresIn: number
@@ -64,7 +62,8 @@ export interface IUserCreate {
   confirm_password: string
   paymentRailsType: string
   access_level: number | string
+  roles: string[]
   membership_id: string | number
-  forceChangePassword: number
-  taxExempt: number
+  forceChangePassword: boolean
+  taxExempt: boolean
 }

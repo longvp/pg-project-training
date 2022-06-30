@@ -7,7 +7,7 @@
     .title{
         font-size: 30px;
     }
-    .btn-add{
+    .btn-create{
         display: block;
         color: white;
         background-color: $purpleLight;
@@ -33,4 +33,68 @@
     &.btn-footer-disabled{
         opacity: 0.5;
     }
+}
+
+// INPUT FIELD
+.input-field{
+    background-color: $bgInput;
+    border: 1px solid $black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    width: 200px;
+    &::placeholder{
+        color: $colorPlaceholder;
+    }
+    &:focus{
+        transition: 0.5s;
+        background-color: $primaryColor;
+        border: 1px solid $purpleLight;
+    }
+}
+
+// CUSTOM STYLE REACT-SELECT FIELD
+.css-14el2xx-placeholder, .css-1pndypt-Input{
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.css-1pahdxg-control, .css-1s2u09g-control{
+    background-color: $bgInput !important;
+    border-color: $black !important;
+    box-shadow: none !important;
+    width: 200px !important;
+    &:hover{
+        border-color: $purpleLight !important;
+    }
+}
+.css-1gtu0rj-indicatorContainer{
+    color: white !important;
+    &:hover{
+        color: white !important;
+    }
+}
+// ---------
+.css-4ljt47-MenuList{
+    padding: 0 !important;
+}
+.css-26l3qy-menu{
+    width: 200px !important;
+    background-color: $primaryColor !important;
+    box-shadow: none !important;
+    border: 1px solid $black !important;
+    padding: 0 !important;
+}
+.css-1n7v3ny-option{
+    background-color: rgba(180,180,219,.16) !important;
+}
+.css-yt9ioa-option{
+    background-color: $primaryColor !important;
+}
+
+.css-qc6sy-singleValue{
+    color: white !important;
+}
+.css-9gakcf-option{
+    background-color: $purpleLight !important;
 }

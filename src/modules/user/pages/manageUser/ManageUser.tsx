@@ -35,7 +35,6 @@ const MangeUser = () => {
   // GET USER LIST
   const getUserList = React.useCallback(async () => {
     setIsLoading(true)
-    console.log('fie: ', filterFieldUser)
     const json = await dispatch(
       fetchThunk(API_PATHS.userList, 'post', {
         page: currentPage,
@@ -132,8 +131,8 @@ const MangeUser = () => {
         {/* FILTER */}
         <UserFilter />
         {/* ADD USER */}
-        <NavLink to={ROUTES.addUser} className="btn-add">
-          Add User
+        <NavLink to={ROUTES.createUser} className="btn-create">
+          Create User
         </NavLink>
         {/* TABLE */}
         <UserTableList />
