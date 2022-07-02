@@ -8,6 +8,8 @@ import { AppState } from '../../../../redux/reducer'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { setUserListSelectedDelete } from './../../redux/userReducer'
+import { NavLink } from 'react-router-dom'
+import { ROUTES } from '../../../../configs/routes'
 
 interface Props {
   user: IUser
@@ -41,23 +43,21 @@ const UserTableItem = (props: Props) => {
     <>
       <tr className={`${isSelectedDelete ? 'isSelectedDelete' : ''}`}>
         <td>
-          <a href="#" className="link">
+          <NavLink to={`/user-detail/${user.profile_id}`} className="link">
             {user.vendor}
-          </a>
+          </NavLink>
           <br />
           {user.storeName ? user.storeName : ''}
         </td>
         <td>
-          <a href="#" className="link">
-            {user.fistName ? user.fistName : ''} {user.lastName ? user.lastName : ''}
-          </a>
+          {user.fistName ? user.fistName : ''} {user.lastName ? user.lastName : ''}
         </td>
         <td>{user.access_level}</td>
         <td>{user.product}</td>
         <td>{user.order.order_as_buyer}</td>
         <td>{user.wishlist}</td>
         <td>{moment.unix(+user.created).format('lll')}</td>
-        <td>{moment.unix(+user.last_login).format('lll')}</td>
+        <td>{user.last_login ? moment.unix(+user.last_login).format('lll') : 'Never'}</td>
         <td>
           <FontAwesomeIcon className="icon-delete" icon={faTrash} onClick={() => handleSelectedDelete()} />
         </td>

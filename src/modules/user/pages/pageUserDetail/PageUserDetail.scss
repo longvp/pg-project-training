@@ -1,0 +1,15 @@
+.info-content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .info-item{
+        display: flex;
+        align-items: flex-start;
+        gap: 50px;
+        .text{
+            display: inline-block;
+            min-width: 200px;
+            text-align: right;
+        }
+    }
+}

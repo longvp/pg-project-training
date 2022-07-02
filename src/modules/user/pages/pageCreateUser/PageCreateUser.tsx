@@ -1,24 +1,33 @@
 import React from 'react'
-import FormAddUser from '../../components/formAddUser/FormAddUser'
-import { IUserCreate } from '../../../../models/user'
+import FormCreateUser from '../../components/formCreateUser/FormCreateUser'
+import { IUserCreateUpdate } from '../../../../models/user'
 import { useDispatch } from 'react-redux'
 import { AppState } from '../../../../redux/reducer'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { fetchThunk } from '../../../common/redux/thunk'
 import { API_PATHS } from '../../../../configs/api'
+import { toast } from 'react-toastify'
+import { useHistory } from 'react-router'
+import { ROUTES } from '../../../../configs/routes'
+import BackPage from '../../../home/components/backPage/BackPage'
 
-const AddUser = () => {
+const PageCreateUser = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
+  const history = useHistory()
   const [loading, setLoading] = React.useState<boolean>(false)
-  const [errorMessage, setErrorMessage] = React.useState<string>('')
 
   const handleCreate = React.useCallback(
-    async (values: IUserCreate) => {
+    async (values: IUserCreateUpdate) => {
       setLoading(true)
       const postValues = { ...values, forceChangePassword: +values.forceChangePassword, taxExempt: +values.taxExempt }
       const json = await dispatch(fetchThunk(API_PATHS.userCreate, 'post', postValues))
-      console.log('crea: ', json) // message = json?.errors
+      if (json?.success) {
+        toast.success('Create Success !')
+        history.push(ROUTES.manageUser)
+      } else {
+        toast.error(json.errors)
+      }
       setLoading(false)
     },
     [dispatch],
@@ -26,12 +35,13 @@ const AddUser = () => {
 
   return (
     <>
-      <div className="page-manage">
+      <div className="page">
+        <BackPage />
         <div className="title">Create Profile</div>
-        <FormAddUser handleCreate={handleCreate} />
+        <FormCreateUser handleCreate={handleCreate} loading={loading} />
       </div>
     </>
   )
 }
 
-export default AddUser
+export default PageCreateUser

@@ -10,6 +10,8 @@ import { fetchThunk } from './modules/common/redux/thunk'
 import { API_PATHS } from './configs/api'
 import { RESPONSE_STATUS_SUCCESS } from './utils/httpResponseCode'
 import { setUserInfo } from './modules/auth/redux/authReducer'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
@@ -18,23 +20,34 @@ function App() {
     user: state.profile.user,
   }))
 
-  const getProfile = React.useCallback(async () => {
-    const accessToken = Cookies.get(ACCESS_TOKEN_KEY)
-    if (accessToken && !user) {
-      const json = await dispatch(fetchThunk(API_PATHS.userProfile))
-      if (json?.code === RESPONSE_STATUS_SUCCESS) {
-        dispatch(setUserInfo({ ...json.data, token: accessToken }))
-      }
-    }
-  }, [dispatch, user])
+  // const getProfile = React.useCallback(async () => {
+  //   const accessToken = Cookies.get(ACCESS_TOKEN_KEY)
+  //   if (accessToken && !user) {
+  //     const json = await dispatch(fetchThunk(API_PATHS.userProfile))
+  //     if (json?.code === RESPONSE_STATUS_SUCCESS) {
+  //       dispatch(setUserInfo({ ...json.data, token: accessToken }))
+  //     }
+  //   }
+  // }, [dispatch, user])
 
-  React.useEffect(() => {
-    getProfile()
-  }, [getProfile])
+  // React.useEffect(() => {
+  //   getProfile()
+  // }, [getProfile])
 
   return (
     <>
       <Routes />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   )
 }

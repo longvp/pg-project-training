@@ -12,6 +12,7 @@ import { setFilterFieldUser } from '../../redux/userReducer'
 import { ICountry } from './../../../../models/country'
 import { IRole } from '../../../../models/role'
 import { IOption } from '../../../../models/option'
+import { MEMBERSHIP_FILTER_OPTION, STATUS_OPTIONS } from '../../utils'
 
 const UserFilter = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
@@ -61,10 +62,6 @@ const UserFilter = () => {
   }, [filterFieldUser])
 
   // ---------------------- MEMBERSHIP OPTION -------------------------------------------
-  const MEMBERSHIP_OPTION = [
-    { label: 'Memberships', value: 'M_4' },
-    { label: 'Pending Memberships', value: 'P_4' },
-  ]
 
   // ---------------------- ROLE OPTION --------------------------------------
   const [roleOptions, setRoleOptions] = React.useState<IOption[]>([])
@@ -86,13 +83,6 @@ const UserFilter = () => {
   }, [roleList])
 
   // ---------------------- STATUS OPTION -------------------------------------------
-  const STATUS_OPTIONS = [
-    { label: 'Any status', value: '' },
-    { label: 'Enable', value: 'E' },
-    { label: 'Disable', value: 'D' },
-    { label: 'Unapproved vendor', value: 'U' },
-  ]
-
   const [statusSelected, setStatusSelected] = React.useState<SingleValue<IOption>>({
     label: STATUS_OPTIONS[0].label,
     value: STATUS_OPTIONS[0].value,
@@ -180,7 +170,7 @@ const UserFilter = () => {
           {/* MEMBERSHIP */}
           <Select
             placeholder="All memberships"
-            options={MEMBERSHIP_OPTION}
+            options={MEMBERSHIP_FILTER_OPTION}
             onChange={(e) => handleChangeMembershipSelect(e)}
             isMulti
           />

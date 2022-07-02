@@ -5,7 +5,6 @@ import { Action } from 'redux'
 import UserFilter from '../../components/userFilter/UserFilter'
 import UserPagination from '../../components/userPagination/UserPagination'
 import UserTableList from '../../components/userTable/UserTableList'
-import './ManageUser.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchThunk } from '../../../common/redux/thunk'
 import { API_PATHS } from '../../../../configs/api'
@@ -17,10 +16,11 @@ import { setModalContent, setShowModal } from '../../../home/redux/homeReducer'
 import Modal from '../../../home/components/modal/Modal'
 import Footer from '../../../home/components/defaultLayout/footer/Footer'
 import { NavLink } from 'react-router-dom'
-import { ROUTES } from './../../../../configs/routes'
+import { ROUTES } from '../../../../configs/routes'
 
-const MangeUser = () => {
+const PageManageUser = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
+
   const { currentPage, itemPerPage, filterFieldUser, userListSelectedDelete, isShowModal } = useSelector(
     (state: AppState) => ({
       currentPage: state.user.currentPage,
@@ -126,7 +126,7 @@ const MangeUser = () => {
 
   return (
     <>
-      <div className="page-manage">
+      <div className="page">
         <div className="title">Search for users</div>
         {/* FILTER */}
         <UserFilter />
@@ -153,4 +153,4 @@ const MangeUser = () => {
   )
 }
 
-export default MangeUser
+export default PageManageUser

@@ -1,45 +1,97 @@
 import { Field, Form, Formik } from 'formik'
 import React from 'react'
-import Select, { MultiValue, SingleValue } from 'react-select'
-import { IUserCreate } from '../../../../models/user'
-import './FormAddUser.scss'
+import { useSelector } from 'react-redux'
+import { IUserCreateUpdate } from '../../../../models/user'
+import { AppState } from '../../../../redux/reducer'
+import Footer from '../../../home/components/defaultLayout/footer/Footer'
 import * as yup from 'yup'
 import { validEmailRegex } from '../../../../utils'
-import { IOption } from '../../../../models/option'
-import Footer from '../../../home/components/defaultLayout/footer/Footer'
 import CustomSelectFormik from '../../../home/components/customSelectFormik/CustomSelectFormik'
+import { STATUS_OPTIONS, ACCESS_LEVEL_OPTIONS } from '../../utils'
+import { IOption } from '../../../../models/option'
+import { IRole } from '../../../../models/role'
 
 interface Props {
-  handleCreate(values: IUserCreate): void
+  handleUpdate(values: IUserCreateUpdate): void
+  loading: boolean
 }
 
-const FormAddUser = (props: Props) => {
-  const { handleCreate } = props
+const FormUpdateUser = (props: Props) => {
+  const { handleUpdate, loading } = props
 
-  const [isShowRole, setIsShowRole] = React.useState<boolean>(false)
+  const { userDetail, roleList } = useSelector((state: AppState) => ({
+    userDetail: state.user.userDetail,
+    roleList: state.user.roleList,
+  }))
 
-  const typeOptions = [
-    {
-      label: 'Individual',
-      value: 'individual',
-    },
-    {
-      label: 'Business',
-      value: 'business',
-    },
-  ]
+  const [isUpdate, setIsUpdate] = React.useState<boolean>(false)
+  const [initialValues, setInitialValues] = React.useState<IUserCreateUpdate>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirm_password: '',
+    paymentRailsType: '',
+    roles: [],
+    status: '',
+    statusComment: '',
+    membership_id: '',
+    forceChangePassword: false,
+    taxExempt: false,
+  })
 
-  const accessLevelOptions = [
-    {
-      label: 'Vendor',
-      value: '10',
-    },
-    {
-      label: 'Admin',
-      value: '100',
-    },
-  ]
+  React.useEffect(() => {
+    if (userDetail) {
+      setInitialValues({
+        firstName: userDetail.firstName ? userDetail.firstName : '',
+        lastName: userDetail.lastName ? userDetail.lastName : '',
+        email: userDetail.email,
+        password: '',
+        confirm_password: '',
+        paymentRailsType: userDetail.paymentRailsType ? userDetail.paymentRailsType : '',
+        paymentRailsId: userDetail.paymentRailsId ? userDetail.paymentRailsId : '',
+        access_level: userDetail.access_level ? userDetail.access_level : '',
+        roles: userDetail.roles,
+        status: userDetail.status,
+        statusComment: '',
+        membership_id: userDetail.membership_id ? userDetail.membership_id : '',
+        forceChangePassword: Boolean(+userDetail.forceChangePassword),
+        taxExempt: Boolean(+userDetail.taxExempt),
+      })
+    }
+  }, [userDetail])
 
+  const validationSchema = yup.object({
+    firstName: yup.string().required('First Name is required'),
+    lastName: yup.string().required('Last Name is required'),
+    email: yup.string().required('Email is required').matches(validEmailRegex, 'Email is invalid'),
+    password: yup.string().required('Password is required').min(6, 'Password is requires 6 characters minimum'),
+    confirm_password: yup
+      .string()
+      .required('Confirm Password is required')
+      .oneOf([yup.ref('password'), null], 'Passwords do not match'),
+  })
+
+  //  ------ BUILD ROLE OPTIONS
+  const [roleOptions, setRoleOptions] = React.useState<IOption[]>([])
+
+  const buildRoleOptions = (roleList: IRole[]) => {
+    const result: IOption[] = []
+    if (roleList && roleList.length > 0) {
+      roleList.map((r) => {
+        result.push({ label: r.name, value: '' + r.id })
+      })
+    }
+    return result
+  }
+
+  React.useEffect(() => {
+    if (roleList && roleList.length > 0) {
+      setRoleOptions(buildRoleOptions(roleList))
+    }
+  }, [roleList])
+
+  // ------------------ MEMBERSHIP OPTIONS
   const membershipOptions = [
     {
       label: 'Ignore Membership',
@@ -51,74 +103,22 @@ const FormAddUser = (props: Props) => {
     },
   ]
 
-  const roleOptions = [
-    {
-      label: 'Administrator',
-      value: '1',
-    },
-    {
-      label: 'Coupons management',
-      value: '2',
-    },
-    {
-      label: 'Content management',
-      value: '3',
-    },
-    {
-      label: 'Volume discounts management',
-      value: '4',
-    },
-    {
-      label: 'Vendor',
-      value: '5',
-    },
-    {
-      label: 'View order reports',
-      value: '6',
-    },
-  ]
-
-  const initialValues: IUserCreate = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirm_password: '',
-    paymentRailsType: '', //individual / business
-    access_level: '', //Admin-100 / Vendor-10
-    roles: [],
-    membership_id: membershipOptions[0].value, //Ignore Membership / General
-    forceChangePassword: false,
-    taxExempt: false,
-  }
-
-  const validationSchema = yup.object({
-    firstName: yup.string().required('First Name is required'),
-    lastName: yup.string().required('Last Name is required'),
-    email: yup.string().required('Email is required').matches(validEmailRegex, 'Email is invalid'),
-    password: yup.string().required('Password is required').min(6, 'Password is requires 6 characters minimum'),
-    confirm_password: yup
-      .string()
-      .required('Confirm password is required')
-      .oneOf([yup.ref('password'), null], 'Passwords do not match'),
-    paymentRailsType: yup.string().required('Type is required'),
-    access_level: yup.string().required('Access level is required'),
-  })
-
   return (
     <>
       <Formik
         initialValues={initialValues}
+        enableReinitialize
         validationSchema={validationSchema}
         onSubmit={(data) => {
-          handleCreate(data)
+          handleUpdate(data)
         }}
       >
         {({ values, errors, touched }) => (
           <>
-            {values.access_level === '100' ? setIsShowRole(true) : setIsShowRole(false)}
+            {JSON.stringify(values) !== JSON.stringify(initialValues) ? setIsUpdate(true) : setIsUpdate(false)}
             <Form>
               {/* FIRST NAME */}
+              <h4 className="title-sub">Email & password</h4>
               <div className="form">
                 <label htmlFor="firstName">
                   First Name
@@ -183,44 +183,25 @@ const FormAddUser = (props: Props) => {
               </div>
               {/* TYPE */}
               <div className="form">
-                <label htmlFor="type">
-                  Type
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
-                  <Field
-                    placeholder="Select type"
-                    name="paymentRailsType"
-                    options={typeOptions}
-                    component={CustomSelectFormik}
-                    isMulti={false}
-                  />
-                  {errors && errors?.paymentRailsType && touched?.paymentRailsType && (
-                    <small className="text-danger">{errors?.paymentRailsType}</small>
-                  )}
-                </div>
+                <label>Type</label>
+                <div className="input-container">{values.paymentRailsType}</div>
               </div>
+              {/* PaymentRails ID */}
+              <div className="form">
+                <label>PaymentRails ID</label>
+                <div className="input-container">{values.paymentRailsId}</div>
+              </div>
+              <div className="seprated-space"></div>
+              <h4 className="title-sub my-3">Access information</h4>
               {/* Access Level */}
               <div className="form">
-                <label htmlFor="accessLevel">
-                  Access Level
-                  <span className="required">*</span>
-                </label>
+                <label htmlFor="accessLevel">Access Level</label>
                 <div className="input-container">
-                  <Field
-                    placeholder="Select level"
-                    name="access_level"
-                    options={accessLevelOptions}
-                    component={CustomSelectFormik}
-                    isMulti={false}
-                  />
-                  {errors && errors?.access_level && touched?.access_level && (
-                    <small className="text-danger">{errors?.access_level}</small>
-                  )}
+                  {values.access_level && +values.access_level === 100 ? 'Admin' : 'Vendor'}
                 </div>
               </div>
               {/* ROLES */}
-              {isShowRole && (
+              {values.access_level && +values.access_level === 100 && (
                 <div className="form">
                   <label htmlFor="role">Roles</label>
                   <div className="input-container">
@@ -234,6 +215,29 @@ const FormAddUser = (props: Props) => {
                   </div>
                 </div>
               )}
+              {/* ACCOUNT STATUS */}
+              <div className="form">
+                <label htmlFor="status">
+                  Account status
+                  <span className="required">*</span>
+                </label>
+                <div className="input-container">
+                  <Field
+                    placeholder="Select status"
+                    name="status"
+                    options={STATUS_OPTIONS}
+                    component={CustomSelectFormik}
+                    isMulti={false}
+                  />
+                </div>
+              </div>
+              {/* STATUS COMMENT*/}
+              <div className="form">
+                <label htmlFor="comment">Status comment (reason)</label>
+                <div className="input-container">
+                  <Field as="textarea" name="statusComment" />
+                </div>
+              </div>
               {/* MEMBERSHIP */}
               <div className="form">
                 <label htmlFor="membership">Membership</label>
@@ -254,6 +258,8 @@ const FormAddUser = (props: Props) => {
                   <Field type="checkbox" id="forceChangePassword" name="forceChangePassword" />
                 </div>
               </div>
+              <div className="seprated-space"></div>
+              <h4 className="title-sub my-3">Tax information</h4>
               {/* Tax exempt */}
               <div className="form">
                 <label htmlFor="taxExempt">Tax exempt</label>
@@ -262,8 +268,13 @@ const FormAddUser = (props: Props) => {
                 </div>
               </div>
               <Footer>
-                <button type="submit" className="btn-footer">
-                  Update selected
+                <button
+                  type="submit"
+                  className={`btn-footer ${!isUpdate ? 'btn-footer-disabled' : ''}`}
+                  disabled={loading || !isUpdate}
+                >
+                  {loading && <div className="spinner-border spinner-border-sm text-light mr-2" role="status" />}
+                  Update User
                 </button>
               </Footer>
             </Form>
@@ -274,4 +285,4 @@ const FormAddUser = (props: Props) => {
   )
 }
 
-export default FormAddUser
+export default FormUpdateUser

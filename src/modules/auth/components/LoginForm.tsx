@@ -41,7 +41,7 @@ const LoginForm = (props: Props) => {
         }}
       >
         {({ errors, touched }) => (
-          <Form className="form">
+          <Form className="form-login">
             <div className="title">
               <FormattedMessage id="logIn" />
             </div>

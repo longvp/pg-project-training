@@ -1,6 +1,6 @@
 import { ActionType, createCustomAction, getType } from 'typesafe-actions'
 import { LIST_NUMBER_ITEM_PER_PAGE } from '../utils'
-import { IFilterFieldUser, IUser, IUserDelete } from './../../../models/user'
+import { IFilterFieldUser, IUser, IUserDelete, IUserDetail } from './../../../models/user'
 import { ICountry } from './../../../models/country'
 import { IRole } from './../../../models/role'
 
@@ -13,6 +13,7 @@ export interface UserState {
   countryList: ICountry[]
   roleList: IRole[]
   userListSelectedDelete: IUserDelete[]
+  userDetail: IUserDetail
 }
 
 const initialState = {
@@ -38,6 +39,36 @@ const initialState = {
     tz: 7,
   },
   userListSelectedDelete: [],
+  userDetail: {
+    access_level: '',
+    companyName: '',
+    default_card_id: '',
+    earning: 0,
+    email: '',
+    expense: '',
+    firstName: '',
+    first_login: '',
+    forceChangePassword: '',
+    income: '',
+    joined: '',
+    language: '',
+    lastName: '',
+    last_login: '',
+    membership_id: '',
+    order_as_buyer: 0,
+    order_as_buyer_total: 0,
+    paymentRailsId: '',
+    paymentRailsType: '',
+    pending_membership_id: '',
+    products_total: '',
+    profile_id: '',
+    referer: '',
+    roles: [],
+    status: '',
+    statusComment: '',
+    taxExempt: '',
+    vendor_id: '',
+  },
 }
 
 export const setUserList = createCustomAction('user/setUserList', (data: IUser[]) => ({
@@ -75,6 +106,10 @@ export const setUserListSelectedDelete = createCustomAction(
   }),
 )
 
+export const setUserDetail = createCustomAction('user/setUserDetail', (data: IUserDetail) => ({
+  data,
+}))
+
 const actions = {
   setUserList,
   setRecordsTotal,
@@ -84,6 +119,7 @@ const actions = {
   setRoleList,
   setFilterFieldUser,
   setUserListSelectedDelete,
+  setUserDetail,
 }
 
 type Action = ActionType<typeof actions>
@@ -107,6 +143,8 @@ export default function reducer(state: UserState = initialState, action: Action)
     }
     case getType(setUserListSelectedDelete):
       return { ...state, userListSelectedDelete: action.data }
+    case getType(setUserDetail):
+      return { ...state, userDetail: action.data }
     default:
       return state
   }
