@@ -1,0 +1,51 @@
+//--------------------------------- CUSTOM STYLE REACT-SELECT FIELD ------------------
+.css-14el2xx-placeholder,
+.css-1pndypt-Input {
+  color: white !important;
+  font-weight: bold !important;
+}
+
+.css-1pahdxg-control,
+.css-1s2u09g-control {
+  background-color: $bgInput !important;
+  border-color: $black !important;
+  box-shadow: none !important;
+  width: 200px !important;
+  &:hover {
+    border-color: $purpleLight !important;
+  }
+}
+.css-1gtu0rj-indicatorContainer {
+  color: white !important;
+  &:hover {
+    color: white !important;
+  }
+}
+// ---------
+.css-4ljt47-MenuList {
+  padding: 0 !important;
+}
+.css-26l3qy-menu {
+  width: 200px !important;
+  background-color: $primaryColor !important;
+  box-shadow: none !important;
+  border: 1px solid $black !important;
+  padding: 0 !important;
+}
+.css-1n7v3ny-option {
+  background-color: rgba(180, 180, 219, 0.16) !important;
+}
+.css-yt9ioa-option {
+  background-color: $primaryColor !important;
+}
+
+.css-qc6sy-singleValue {
+  color: white !important;
+}
+.css-9gakcf-option {
+  background-color: $purpleLight !important;
+}
+
+.css-xb97g8{
+  background-color: #FFBDAD !important;
+}

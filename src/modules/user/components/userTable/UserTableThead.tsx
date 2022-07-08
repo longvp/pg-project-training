@@ -6,8 +6,8 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { IOption } from '../../../../models/option'
 import { AppState } from '../../../../redux/reducer'
-import { ORDER_BY } from '../../utils'
 import { setFilterFieldUser } from '../../redux/userReducer'
+import { ORDER_BY } from '../../../../utils/constants'
 
 interface Props {
   sortOption: IOption

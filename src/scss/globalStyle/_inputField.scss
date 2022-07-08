@@ -1,0 +1,18 @@
+// -------------------------------- INPUT FIELD --------------------------------
+.input-field, textarea {
+  outline: none;
+  background-color: $bgInput;
+  border: 1px solid $black;
+  padding: 7px 10px;
+  border-radius: 5px;
+  color: white;
+  width: 200px;
+  &::placeholder {
+    color: $colorPlaceholder;
+  }
+  &:focus {
+    transition: 0.5s;
+    background-color: $primaryColor;
+    border: 1px solid $purpleLight;
+  }
+}

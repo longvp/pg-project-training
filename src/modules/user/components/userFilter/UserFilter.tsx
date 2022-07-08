@@ -2,7 +2,6 @@ import React from 'react'
 import Select, { MultiValue, SingleValue } from 'react-select'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './UserFilter.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { AppState } from '../../../../redux/reducer'
@@ -91,13 +90,13 @@ const UserFilter = () => {
   // ---------------------- COUNTRY OPTION --------------------------------------
   const [countryOptions, setCountryOptions] = React.useState<IOption[]>([])
   const [countrySelected, setCountrySelected] = React.useState<SingleValue<IOption>>({
-    label: 'Select Country',
+    label: 'Any Country',
     value: '',
   })
 
   const buildCountryOptions = (countryList: ICountry[]) => {
     const result: IOption[] = []
-    result.push({ label: 'Select Country', value: '' })
+    result.push({ label: 'Any Country', value: '' })
     if (countryList && countryList.length > 0) {
       countryList.map((c) => {
         result.push({ label: c.country, value: c.code })
@@ -199,7 +198,7 @@ const UserFilter = () => {
           <div className="filter-left">
             {/* COUNTRY OPTIONS */}
             <Select
-              placeholder="Select country"
+              placeholder="Any Country"
               value={countrySelected}
               options={countryOptions}
               onChange={(e) => handleChangeCountrySelect(e)}

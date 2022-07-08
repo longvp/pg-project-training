@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import UserTableItem from './UserTableItem'
-import './UserTableList.scss'
 import { AppState } from './../../../../redux/reducer'
 import { IUser } from './../../../../models/user'
 import { IOption } from './../../../../models/option'

@@ -1,7 +1,5 @@
-@import '../../../../scss/variable';
-
+// ------------------------------------ FILTER ----------------------------------
 .filter{
-    padding: 20px;
     position: relative;
     background-color: $primaryColor;
     border: 1px solid $black;
@@ -23,8 +21,9 @@
 
 .filter-show{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    padding: 20px;
     //flex-wrap: wrap;
     .btn-search{
         display: block;
@@ -43,8 +42,11 @@
 
 .filter-hide{
     display: none;
-    margin-top: 20px;
-    gap: 50px;
+    align-items: flex-start;
+    // justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    border-top: 1px solid $black;
     &.show{
         display: flex;
     }
@@ -68,4 +70,19 @@
             gap: 5px;
         }
     }
+}
+
+.filter-checkbox{
+  display: flex;
+  gap: 10px;
+  .list-checkbox{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .checkbox{
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
 }

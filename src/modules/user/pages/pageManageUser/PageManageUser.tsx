@@ -17,12 +17,15 @@ import Modal from '../../../home/components/modal/Modal'
 import Footer from '../../../home/components/defaultLayout/footer/Footer'
 import { NavLink } from 'react-router-dom'
 import { ROUTES } from '../../../../configs/routes'
+import { setUserInfo } from '../../../auth/redux/authReducer'
+import { toast } from 'react-toastify'
 
 const PageManageUser = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
 
-  const { currentPage, itemPerPage, filterFieldUser, userListSelectedDelete, isShowModal } = useSelector(
+  const { user, currentPage, itemPerPage, filterFieldUser, userListSelectedDelete, isShowModal } = useSelector(
     (state: AppState) => ({
+      user: state.profile.user,
       currentPage: state.user.currentPage,
       itemPerPage: state.user.itemPerPage,
       filterFieldUser: state.user.filterFieldUser,
@@ -55,6 +58,8 @@ const PageManageUser = () => {
       }),
     )
     if (json?.success) {
+      const user = json?.user
+      dispatch(setUserInfo({ ...user, profile_id: user?.profile_id, login: user?.login }))
       dispatch(setUserList(json.data))
       dispatch(setRecordsTotal(json.recordsTotal))
     }
@@ -103,8 +108,11 @@ const PageManageUser = () => {
       }),
     )
     if (json?.success) {
+      toast.success('Delete success !')
       getUserList()
       dispatch(setUserListSelectedDelete([]))
+    } else {
+      toast.error(json?.errors)
     }
     setIsLoading(false)
   }, [userListSelectedDelete])

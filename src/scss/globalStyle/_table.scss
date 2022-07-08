@@ -1,5 +1,4 @@
-@import '../../../../scss/variable';
-
+// ---------------------------- TABLE --------------------------------------
 .table-container{
     overflow-x: auto !important;
     width: 100%;
@@ -40,6 +39,11 @@
             &.isSelectedDelete{
                opacity: 0.5;
             }
+            &:hover{
+              .input-td{
+                background-color: $purpleLight;
+              }
+            }
         }
         td{
             display: table-cell;
@@ -50,6 +54,19 @@
                 &:hover{
                     text-decoration: underline;
                 }
+            }
+            .input-td{
+              color: white;
+              width: 100px;
+              padding: 5px 8px;
+              border-radius: 5px;
+              border: 1px solid transparent;
+              &:focus{
+                border-color: $blue;
+                background-color: white;
+                color: $black;
+                box-shadow: 0 1px 1px #00000013, 0 0 8px #66afe999;
+              }
             }
         }
         .icon-delete{

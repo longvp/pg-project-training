@@ -30,7 +30,7 @@ function LoginPage() {
       if (json?.success === true) {
         dispatch(setUserInfo({ ...json.user, user_cookie: json.user_cookie }))
         Cookies.set(ACCESS_TOKEN_KEY, json.user_cookie, { expires: values.rememberMe ? 7 : undefined })
-        dispatch(replace(ROUTES.home))
+        dispatch(replace(ROUTES.manageUser))
         return
       }
       setErrorMessage(json?.errors.email)
@@ -43,7 +43,7 @@ function LoginPage() {
     return (
       <Redirect
         to={{
-          pathname: ROUTES.home,
+          pathname: ROUTES.manageUser,
         }}
       />
     )
@@ -51,7 +51,7 @@ function LoginPage() {
 
   // React.useEffect(() => {
   //   if (accessToken) {
-  //     dispatch(replace(ROUTES.home))
+  //     dispatch(replace(ROUTES.manageUser))
   //   }
   // }, [])
 

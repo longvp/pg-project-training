@@ -26,7 +26,7 @@ const PageCreateUser = () => {
         toast.success('Create Success !')
         history.push(ROUTES.manageUser)
       } else {
-        toast.error(json.errors)
+        toast.error(json?.errors)
       }
       setLoading(false)
     },

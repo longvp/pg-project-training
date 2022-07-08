@@ -1,0 +1,54 @@
+.search-vendor{
+    position: relative;
+    height: 37px;
+    width: 200px;
+    input{
+        padding-right: 25px;
+    }
+    .clear, .loading{
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        color: white;
+        cursor: pointer;
+    }
+    .loading{
+        animation: loading 1.2s linear infinite;
+    }
+    .vendor-list, .vendor-not-found{
+        position: absolute;
+        // top: 37px;
+        width: 100%;
+        height: 200px;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+        overflow-y: auto;
+        z-index: 1;
+        li{
+            display: block;
+            width: 100%;
+            padding: 8px;
+            text-align: left;
+            word-break: break-all;
+            cursor: pointer;
+            &:hover{
+                background-color: rgba(204, 204, 204, 0.874);
+            }
+        }
+    }
+    .vendor-not-found{
+        height: 38px;
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: translateY(-50%) rotate(0);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}

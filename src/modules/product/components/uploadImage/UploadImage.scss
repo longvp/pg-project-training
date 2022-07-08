@@ -1,0 +1,56 @@
+.input-file {
+   //margin: 0 auto;
+   //width: 100%;
+   height: 100px;
+   position: relative;
+   
+   input[type="file"] {
+      display: none;
+   }
+
+   .input-label {
+      border-radius: 8px;
+      border: 1px dotted #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+
+      .icon-upload {
+         display: block;
+         margin: 0 auto;
+         color: #ccc;
+         font-size: 3rem;
+         pointer-events: none;
+      }
+   }
+}
+
+.list-image{
+   width: 100%;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 5px;
+   .image-item{
+      position: relative;
+      .image{
+         width: 100px;
+         height: 100px;
+         // object-fit: cover;
+      }
+      .icon-delete{
+         position: absolute;
+         top: -5px;
+         right: -5px;
+         color: white;
+         font-size: 20px;
+         cursor: pointer;
+      }
+   }
+}
+

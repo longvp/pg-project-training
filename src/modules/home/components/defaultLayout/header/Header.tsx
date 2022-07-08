@@ -60,9 +60,9 @@ function Header(props: Props) {
                 <div className="header-left">
                   {/* TOGGLE SIDEBAR */}
                   <FontAwesomeIcon className="icon icon-bars" icon={faBars} onClick={() => handleToggleSidebar()} />
-                  <a href="#" className="logo-text">
+                  <NavLink to={ROUTES.home} className="logo-text">
                     Gear Focus Admin
-                  </a>
+                  </NavLink>
                   <div className="notify">
                     <FontAwesomeIcon className="icon icon-bell" icon={faBell} />
                     <ul className="list notify-list">
@@ -89,9 +89,9 @@ function Header(props: Props) {
                     <FontAwesomeIcon className="icon" icon={faUser} />
                     <ul className="list action-list">
                       <li className="action-item">
-                        <a href="#" className="action-link">
+                        <NavLink to={`/user-detail/${user?.profile_id}`} className="action-link">
                           My profile
-                        </a>
+                        </NavLink>
                         <span className="email-user">{user && user?.login}</span>
                       </li>
                       <li className="action-item" onClick={() => showModal()}>

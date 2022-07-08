@@ -37,4 +37,12 @@ export const API_PATHS = {
   userCreate: `${getBaseUrl(APIService.apiAdmin)}/users/create`,
   userDetail: `${getBaseUrl(APIService.apiVendor)}/profile/detail`,
   userUpdate: `${getBaseUrl(APIService.apiAdmin)}/users/edit`,
+
+  categoryList: `${getBaseUrl(APIService.api)}/categories/list`,
+  brandList: `${getBaseUrl(APIService.apiAdmin)}/brands/list`,
+  vendorList: `${getBaseUrl(APIService.apiAdmin)}/vendors/list`,
+  productList: `${getBaseUrl(APIService.api)}/products/list`,
+  productDelete: `${getBaseUrl(APIService.apiAdmin)}/products/edit`,
+  productCreate: `${getBaseUrl(APIService.apiAdmin)}/products/create`,
+  uploadImage: `${getBaseUrl(APIService.api)}/products/upload-image`,
 }

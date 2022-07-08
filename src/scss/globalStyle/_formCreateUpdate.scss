@@ -1,5 +1,4 @@
-@import '../../../../scss/variable';
-
+// ---------------------------- FORM CREATE - UPDATE ------------------------
 .form{
     margin-bottom: 25px;
     display: flex;
@@ -17,6 +16,15 @@
     .input-container{
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
         gap: 5px;
+        width: 500px;
+        // .input-field{
+        //   width: 200px;
+        // }
+        input[type="checkbox"]{
+            //display: block;
+            width: 20px;
+        }
     }
 }

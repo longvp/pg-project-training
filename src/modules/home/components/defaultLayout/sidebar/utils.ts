@@ -5,7 +5,7 @@ export const MENU_SIDEBAR = [
   {
     iconModel: faTag,
     name: 'Catalog',
-    sub_menus: [{ name: 'Products', link: ROUTES.products }],
+    sub_menus: [{ name: 'Products', link: ROUTES.manageProduct }],
   },
   {
     iconModel: faUserGroup,

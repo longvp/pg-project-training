@@ -5,15 +5,13 @@ import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { setCurrentPage, setItemPerPage } from '../../redux/userReducer'
 import { AppState } from './../../../../redux/reducer'
-import './UserPagination.scss'
-import { LIST_NUMBER_ITEM_PER_PAGE } from '../../utils'
+import { LIST_NUMBER_ITEM_PER_PAGE_USER } from './../../utils'
 
 const UserPagination = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
 
   const { recordsTotal, itemPerPage } = useSelector((state: AppState) => ({
     recordsTotal: state.user.recordsTotal,
-
     itemPerPage: state.user.itemPerPage,
   }))
 
@@ -53,9 +51,9 @@ const UserPagination = () => {
           <span className="number-highlight">{recordsTotal}</span>
           items
           <select className="number-select" onChange={(e) => handleChangeItemPerPage(e)}>
-            {LIST_NUMBER_ITEM_PER_PAGE &&
-              LIST_NUMBER_ITEM_PER_PAGE.length > 0 &&
-              LIST_NUMBER_ITEM_PER_PAGE.map((number, index) => (
+            {LIST_NUMBER_ITEM_PER_PAGE_USER &&
+              LIST_NUMBER_ITEM_PER_PAGE_USER.length > 0 &&
+              LIST_NUMBER_ITEM_PER_PAGE_USER.map((number, index) => (
                 <option value={number} key={index}>
                   {number}
                 </option>

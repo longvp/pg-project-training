@@ -9,7 +9,7 @@
     bottom: 5px;
     right: 36px;
     left: calc(#{$sidebarWidth} + #{$paddingcontentPage});
-    z-index: 10;
+    z-index: 0; //20
     box-shadow: 0 0 13px 0 #b18aff;
     padding: 15px 36px;
     transition: all 0.5s;

@@ -56,8 +56,8 @@ const UserTableItem = (props: Props) => {
         <td>{user.product}</td>
         <td>{user.order.order_as_buyer}</td>
         <td>{user.wishlist}</td>
-        <td>{moment.unix(+user.created).format('lll')}</td>
-        <td>{user.last_login ? moment.unix(+user.last_login).format('lll') : 'Never'}</td>
+        <td>{moment(+user.created * 1000).format('lll')}</td>
+        <td>{+user.last_login > 0 ? moment(+user.last_login * 1000).format('lll') : 'Never'}</td>
         <td>
           <FontAwesomeIcon className="icon-delete" icon={faTrash} onClick={() => handleSelectedDelete()} />
         </td>

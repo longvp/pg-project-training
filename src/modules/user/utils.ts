@@ -1,4 +1,4 @@
-export const LIST_NUMBER_ITEM_PER_PAGE = [10, 25, 50, 75, 100]
+export const LIST_NUMBER_ITEM_PER_PAGE_USER = [10, 25, 50, 75, 100]
 
 export const MEMBERSHIP_FILTER_OPTION = [
   { label: 'Memberships', value: 'M_4' },
@@ -49,12 +49,3 @@ export const ROLE_OPTIONS = [
     value: '6',
   },
 ]
-
-export const ORDER_BY = {
-  ASC: 'ASC',
-  DESC: 'DESC',
-}
-
-export const formatCurrency = (value: number) => {
-  return '$' + value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-}

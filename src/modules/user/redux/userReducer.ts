@@ -1,5 +1,5 @@
 import { ActionType, createCustomAction, getType } from 'typesafe-actions'
-import { LIST_NUMBER_ITEM_PER_PAGE } from '../utils'
+import { LIST_NUMBER_ITEM_PER_PAGE_USER } from '../utils'
 import { IFilterFieldUser, IUser, IUserDelete, IUserDetail } from './../../../models/user'
 import { ICountry } from './../../../models/country'
 import { IRole } from './../../../models/role'
@@ -20,7 +20,7 @@ const initialState = {
   userList: [],
   recordsTotal: 0,
   currentPage: 1,
-  itemPerPage: LIST_NUMBER_ITEM_PER_PAGE[0],
+  itemPerPage: LIST_NUMBER_ITEM_PER_PAGE_USER[0],
   countryList: [],
   roleList: [],
   filterFieldUser: {

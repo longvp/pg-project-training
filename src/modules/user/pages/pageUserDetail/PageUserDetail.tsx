@@ -11,10 +11,10 @@ import { setRoleList, setUserDetail } from '../../redux/userReducer'
 import Loading from '../../../home/components/loading/Loading'
 import { toast } from 'react-toastify'
 import './PageUserDetail.scss'
-import { formatCurrency } from './../../utils'
 import moment from 'moment'
 import FormUpdateUser from '../../components/formUpdateUser/FormUpdateUser'
 import { IUserCreateUpdate } from '../../../../models/user'
+import { formatCurrency } from '../../../../utils'
 
 const PageUserDetail = () => {
   const param = useParams<{ userId: string | undefined }>()
@@ -64,6 +64,8 @@ const PageUserDetail = () => {
       if (json?.success) {
         getUserDetail()
         toast.success('Update success')
+      } else {
+        toast.error(json?.errors)
       }
       setLoading(false)
     },
@@ -102,12 +104,12 @@ const PageUserDetail = () => {
             </div>
             <div className="info-item">
               <span className="text">Joined</span>
-              <span className="value">{moment(+userDetail.joined).format('lll')}</span>
+              <span className="value">{moment(+userDetail.joined * 1000).format('lll')}</span>
             </div>
             <div className="info-item">
               <span className="text">Last login</span>
               <span className="value">
-                {userDetail.last_login ? moment(+userDetail.last_login).format('lll') : 'Never'}
+                {userDetail.last_login ? moment(+userDetail.last_login * 1000).format('lll') : 'Never'}
               </span>
             </div>
             {userDetail.language && (

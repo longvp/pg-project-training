@@ -5,6 +5,7 @@ import authReducer, { AuthState } from '../modules/auth/redux/authReducer'
 import intlReducer, { IntlState } from '../modules/intl/redux/intlReducer'
 import homeReducer, { HomeState } from '../modules/home/redux/homeReducer'
 import userReducer, { UserState } from '../modules/user/redux/userReducer'
+import productReducer, { ProductState } from '../modules/product/redux/productReducer'
 
 export interface AppState {
   router: RouterState
@@ -12,6 +13,7 @@ export interface AppState {
   profile: AuthState
   home: HomeState
   user: UserState
+  product: ProductState
 }
 
 export default function createRootReducer(history: History) {
@@ -21,5 +23,6 @@ export default function createRootReducer(history: History) {
     profile: authReducer,
     home: homeReducer,
     user: userReducer,
+    product: productReducer,
   })
 }
