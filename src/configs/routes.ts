@@ -7,7 +7,7 @@ const PageCreateUser = lazy(() => import('../modules/user/pages/pageCreateUser/P
 const PageUserDetail = lazy(() => import('./../modules/user/pages/pageUserDetail/PageUserDetail'))
 
 const PageManageProduct = lazy(() => import('../modules/product/pages/pageManageProduct/PageManageProduct'))
-const PageCreateProduct = lazy(() => import('../modules/product/pages/pageCreateProduct/PageCreateProduct'))
+const PageFormProduct = lazy(() => import('../modules/product/pages/pageFormProduct/PageFormProduct'))
 
 export const ROUTES = {
   login: '/login',
@@ -20,7 +20,7 @@ export const ROUTES = {
 
   manageProduct: '/manage-product',
   createProduct: '/create-product',
-  //productDetail: '/product-detail/:productId',
+  productDetail: '/product-detail/:productId',
 }
 
 export const PROTECTED_ROUTES = [
@@ -31,5 +31,6 @@ export const PROTECTED_ROUTES = [
   { path: ROUTES.userDetail, component: PageUserDetail },
 
   { path: ROUTES.manageProduct, component: PageManageProduct },
-  { path: ROUTES.createProduct, component: PageCreateProduct },
+  { path: ROUTES.createProduct, component: PageFormProduct },
+  { path: ROUTES.productDetail, component: PageFormProduct },
 ]

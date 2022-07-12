@@ -35,18 +35,19 @@
    width: 100%;
    display: flex;
    flex-wrap: wrap;
-   gap: 5px;
+   gap: 15px;
    .image-item{
       position: relative;
       .image{
          width: 100px;
          height: 100px;
+         border-radius: 8px;
          // object-fit: cover;
       }
       .icon-delete{
          position: absolute;
-         top: -5px;
-         right: -5px;
+         top: -10px;
+         right:-10px;
          color: white;
          font-size: 20px;
          cursor: pointer;

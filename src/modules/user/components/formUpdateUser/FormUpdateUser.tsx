@@ -42,6 +42,7 @@ const FormUpdateUser = (props: Props) => {
 
   React.useEffect(() => {
     if (userDetail) {
+      console.log('use: ', userDetail.roles)
       setInitialValues({
         firstName: userDetail.firstName ? userDetail.firstName : '',
         lastName: userDetail.lastName ? userDetail.lastName : '',
@@ -60,6 +61,8 @@ const FormUpdateUser = (props: Props) => {
       })
     }
   }, [userDetail])
+
+  console.log('i u: ', initialValues)
 
   const validationSchema = yup.object({
     firstName: yup.string().required('First Name is required'),

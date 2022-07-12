@@ -2,7 +2,6 @@ import React from 'react'
 import Header from './header/Header'
 import Sidebar from './sidebar/Sidebar'
 import './DefaultLayout.scss'
-import Modal from '../modal/Modal'
 import { useSelector } from 'react-redux'
 import { AppState } from '../../../../redux/reducer'
 

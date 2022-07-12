@@ -45,7 +45,7 @@ const ProductTableItem = (props: Props) => {
       <tr className={`${isSelectedDelete ? 'isSelectedDelete' : ''}`}>
         <td>{product.sku}</td>
         <td>
-          <NavLink to="/" href="#" className="link">
+          <NavLink to={`/product-detail/${product.id}`} className="link">
             {product.name}
           </NavLink>
         </td>

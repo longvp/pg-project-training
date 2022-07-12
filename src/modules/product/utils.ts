@@ -61,3 +61,22 @@ export const META_DESC_TYPE_OPTIONS = [
     value: 'C',
   },
 ]
+
+export const dateFormat = (date: any) => {
+  const d = new Date(date)
+  let month = (d.getMonth() + 1).toString()
+  let day = d.getDate().toString()
+  const year = d.getFullYear()
+  if (month.length < 2) {
+    month = '0' + month
+  }
+  if (day.length < 2) {
+    day = '0' + day
+  }
+  return [year, month, day].join('-')
+}
+
+export const STATUS_ACTION = {
+  CREATE: 'create',
+  UPDATE: 'update',
+}

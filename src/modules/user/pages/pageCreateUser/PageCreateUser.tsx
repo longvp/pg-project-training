@@ -37,7 +37,10 @@ const PageCreateUser = () => {
     <>
       <div className="page">
         <BackPage />
-        <div className="title">Create Profile</div>
+        <div className="title">
+          Create Profile
+          <hr />
+        </div>
         <FormCreateUser handleCreate={handleCreate} loading={loading} />
       </div>
     </>

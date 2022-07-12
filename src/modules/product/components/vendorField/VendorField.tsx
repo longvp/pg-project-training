@@ -19,12 +19,6 @@ interface Props {
 const VendorField = (props: Props) => {
   const { handleChangeVendor, nameVendor } = props
 
-  React.useEffect(() => {
-    if (nameVendor) {
-      setSearchValue(nameVendor)
-    }
-  }, [nameVendor])
-
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
 
   const [searchValue, setSearchValue] = React.useState<string>('')
@@ -69,6 +63,14 @@ const VendorField = (props: Props) => {
     setVendorList([])
     handleChangeVendor('')
   }
+
+  React.useEffect(() => {
+    if (nameVendor) {
+      setSearchValue(nameVendor)
+      setVendorList([])
+      return
+    }
+  }, [nameVendor])
 
   return (
     <>

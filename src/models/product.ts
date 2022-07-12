@@ -35,33 +35,37 @@ export interface IProductDelete {
 export interface IShippingZone {
   id: string | number // ID COUNTRY
   price: string | number // PRICE
+  zone_name?: string
+}
+
+export interface IImage {
+  id: number | string
+  file: string
+  thumbs?: string[]
 }
 
 export interface IProductCreate {
   vendor_id: number | string
   name: string
-  brand_id: number | string
+  brand_id: number | string //
   condition_id: number | string
   inventory_tracking: number //0
   sku: string
-  imagesOrder: string[]
-  categories: number[]
+  imagesOrder?: string[]
+  categories: any[] //
   description: string
   enabled: boolean
-
   // ----- PRICES AND INVENTORY -------
-  memberships: number[]
+  memberships: any[]
   tax_exempt: boolean
   price: string | number
   participate_sale: boolean
   sale_price_type: string
   sale_price: string | number
-  arrival_date: string //'2022-07-05'
+  arrival_date: string //'2022-07-05'//
   quantity: string | number
-
   // ----- SHIPPING -------
   shipping_to_zones: IShippingZone[]
-
   // ----- MARKETING -------
   og_tags_type: string | number
   og_tags: string
@@ -71,11 +75,12 @@ export interface IProductCreate {
   product_page_title: string
   facebook_marketing_enabled: boolean
   google_feed_enabled: boolean
-
-  deleted_images: number[]
-}
-
-export interface IImage {
-  id: number | string
-  file: string
+  deleted_images?: number[]
+  // DETAIL PRODUCT
+  cleanURL?: string
+  code?: string
+  id?: number | string
+  images?: IImage[]
+  sort_description?: string
+  weight?: number | string
 }

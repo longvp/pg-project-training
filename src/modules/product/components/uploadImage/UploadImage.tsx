@@ -4,18 +4,23 @@ import React from 'react'
 import { IImage } from '../../../../models/product'
 import './UploadImage.scss'
 import { v4 as uuidv4 } from 'uuid'
+import { IProductCreate } from './../../../../models/product'
 
 interface Props {
   setImagesOrder(imagesOrder: string[]): void // LƯU TÊN ẢNH
   setImagesFile(imagesFile: File[]): void // LƯU FILE ẢNH
+  setMessValidImage(mess: string): void
+  productDetail: IProductCreate
+  setDeletedImages(arrIDImageDeleted: number[]): void
 }
 
 const UploadImage = (props: Props) => {
-  const { setImagesOrder, setImagesFile } = props
+  const { setImagesOrder, setImagesFile, setMessValidImage, productDetail, setDeletedImages } = props
 
   const [imgFiles, setImgFiles] = React.useState<any[]>([]) // LƯU FILE ẢNH
-  const [imageNames, setImageNames] = React.useState<any[]>([]) // LƯU TÊN ẢNH
-  const [imageUrls, setImageUrls] = React.useState<any[]>([]) // LƯU URL ẢNH
+  const [imageNames, setImageNames] = React.useState<string[]>([]) // LƯU TÊN ẢNH
+  const [imageUrls, setImageUrls] = React.useState<IImage[]>([]) // LƯU URL ẢNH
+  const [imageDeleteds, setImageDeleteds] = React.useState<number[]>([])
 
   const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
@@ -38,8 +43,10 @@ const UploadImage = (props: Props) => {
     setImgFiles(imgFiles.filter((file, i) => i !== index))
     setImageNames(imageNames.filter((name, i) => i !== index))
     setImageUrls(imageUrls.filter((url, i) => i !== index))
-    // setImageUrls(imageUrls.filter((url) => url.file !== urlImg))
-    URL.revokeObjectURL(imageUrls[index])
+    if (!isNaN(+id)) {
+      setImageDeleteds((previous) => previous.concat(+id))
+    }
+    URL.revokeObjectURL(imageUrls[index].file)
   }
 
   React.useEffect(() => {
@@ -50,7 +57,7 @@ const UploadImage = (props: Props) => {
         }
       }
     }
-  }, [imageUrls])
+  }, [])
 
   React.useEffect(() => {
     setImagesOrder(imageNames)
@@ -59,6 +66,31 @@ const UploadImage = (props: Props) => {
   React.useEffect(() => {
     setImagesFile(imgFiles)
   }, [imgFiles])
+
+  React.useEffect(() => {
+    if (imageUrls.length === 0) {
+      setMessValidImage('Image is required')
+    }
+    if (imageUrls.length > 0) {
+      setMessValidImage('')
+    }
+  }, [imageUrls]) //imageUrls
+
+  React.useEffect(() => {
+    if (productDetail.id && productDetail.images) {
+      setImageUrls(
+        productDetail.images.map((img) => ({
+          id: img?.id,
+          file: img.thumbs && img.thumbs.length > 0 ? img.thumbs[1] : '',
+          thumbs: img?.thumbs,
+        })),
+      )
+    }
+  }, [productDetail])
+
+  React.useEffect(() => {
+    setDeletedImages(imageDeleteds)
+  }, [imageDeleteds])
 
   return (
     <>

@@ -15,6 +15,7 @@ import {
   META_DESC_TYPE_OPTIONS,
   OG_TAGS_TYPE_OPTIONS,
   SALE_PRICE_TYPE_OPTIONS,
+  STATUS_ACTION,
 } from '../../utils'
 import { ICategory } from '../../../../models/category'
 import JoditEditor from 'jodit-react'
@@ -22,8 +23,10 @@ import UploadImage from '../uploadImage/UploadImage'
 import moment from 'moment'
 import FormInput from '../../../home/components/formInput/FormInput'
 import { ICountry } from '../../../../models/country'
+import { NavLink } from 'react-router-dom'
 
 interface Props {
+  loading: boolean
   handleCreate(values: IProductCreate): void
   setIdVendor(idVendor: string | number): void
   messValidVendor: string
@@ -33,10 +36,14 @@ interface Props {
   setImagesOrder(imagesOrder: string[]): void
   setImagesFile(imagesFile: File[]): void
   messValidImage: string
-  loading: boolean
+  setMessValidImage(mess: string): void
+  productDetail: IProductCreate
+  nameVendor: string
+  setDeletedImages(arrIDImageDeleted: number[]): void
+  statusAction: string
 }
 
-const FormCreateProduct = (props: Props) => {
+const FormProduct = (props: Props) => {
   const {
     handleCreate,
     loading,
@@ -48,6 +55,11 @@ const FormCreateProduct = (props: Props) => {
     setImagesOrder,
     setImagesFile,
     messValidImage,
+    setMessValidImage,
+    productDetail,
+    nameVendor,
+    setDeletedImages,
+    statusAction,
   } = props
 
   const { brandList, categoryList, countryList } = useSelector((state: AppState) => ({
@@ -56,7 +68,7 @@ const FormCreateProduct = (props: Props) => {
     countryList: state.user.countryList,
   }))
 
-  const initialValues: IProductCreate = {
+  const [initialValues, setInitialValues] = React.useState<IProductCreate>({
     vendor_id: '',
     name: '',
     brand_id: '',
@@ -94,7 +106,34 @@ const FormCreateProduct = (props: Props) => {
     google_feed_enabled: false,
 
     deleted_images: [],
-  }
+  })
+
+  React.useEffect(() => {
+    if (productDetail.id) {
+      let categoriesDetail: any[] = []
+      let membershipsDetail: any[] = []
+      if (productDetail.categories && productDetail.categories.length > 0) {
+        categoriesDetail = productDetail.categories.map((c) => c.category_id)
+      }
+      if (productDetail.memberships && productDetail.memberships.length > 0) {
+        membershipsDetail = productDetail.memberships.map((m) => m.membership_id)
+      }
+      setInitialValues({
+        ...productDetail,
+        inventory_tracking: productDetail.inventory_tracking,
+        enabled: Boolean(+productDetail.enabled),
+        tax_exempt: Boolean(+productDetail.tax_exempt),
+        price: +Number(productDetail.price).toFixed(2),
+        participate_sale: Boolean(+productDetail.participate_sale),
+        sale_price: +Number(productDetail.sale_price).toFixed(2),
+        arrival_date: moment(+productDetail.arrival_date * 1000).format('YYYY-MM-DD'),
+        facebook_marketing_enabled: Boolean(+productDetail.facebook_marketing_enabled),
+        google_feed_enabled: Boolean(+productDetail.google_feed_enabled),
+        categories: categoriesDetail,
+        memberships: membershipsDetail,
+      })
+    }
+  }, [productDetail])
 
   const validationSchema = yup.object({
     name: yup.string().required('Title is required'),
@@ -175,6 +214,7 @@ const FormCreateProduct = (props: Props) => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
+        enableReinitialize
         onSubmit={(data) => {
           handleCreate(data)
         }}
@@ -187,7 +227,7 @@ const FormCreateProduct = (props: Props) => {
               <FormInput isRequired label="Vendor">
                 <>
                   {/* nameVendor="nameadg" */}
-                  <VendorField handleChangeVendor={handleChangeVendor} />
+                  <VendorField handleChangeVendor={handleChangeVendor} nameVendor={nameVendor} />
                   {messValidVendor && <small className="text-danger">{messValidVendor}</small>}
                 </>
               </FormInput>
@@ -238,17 +278,19 @@ const FormCreateProduct = (props: Props) => {
               {/* IMAGES */}
               <FormInput isRequired label="Images">
                 <>
-                  <UploadImage setImagesOrder={setImagesOrder} setImagesFile={setImagesFile} />
+                  <UploadImage
+                    setImagesOrder={setImagesOrder}
+                    setImagesFile={setImagesFile}
+                    setMessValidImage={setMessValidImage}
+                    productDetail={productDetail}
+                    setDeletedImages={setDeletedImages}
+                  />
                   {messValidImage && <small className="text-danger">{messValidImage}</small>}
                 </>
               </FormInput>
               {/* CATEGORIES */}
-              <div className="form">
-                <label htmlFor="categories">
-                  Categories
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired label="Categories">
+                <>
                   <Field
                     placeholder="Select categories"
                     name="categories"
@@ -259,8 +301,8 @@ const FormCreateProduct = (props: Props) => {
                   {errors && errors?.categories && touched?.categories && (
                     <small className="text-danger">{errors?.categories}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* DESCRIPTION */}
               <FormInput isRequired label="Description">
                 <>
@@ -407,10 +449,13 @@ const FormCreateProduct = (props: Props) => {
                 </>
               </FormInput>
               <Footer>
-                <button type="submit" className="btn-footer" disabled={loading}>
-                  {loading && <div className="spinner-border spinner-border-sm text-light mr-2" role="status" />}
-                  Create User
-                </button>
+                <>
+                  <button type="submit" className="btn-footer" disabled={loading}>
+                    {loading && <div className="spinner-border spinner-border-sm text-light mr-2" role="status" />}
+                    {statusAction === STATUS_ACTION.UPDATE ? 'Update User' : 'Create User'}
+                  </button>
+                  {statusAction === STATUS_ACTION.UPDATE && <NavLink to="">{productDetail?.cleanURL}</NavLink>}
+                </>
               </Footer>
             </Form>
           </>
@@ -420,4 +465,4 @@ const FormCreateProduct = (props: Props) => {
   )
 }
 
-export default FormCreateProduct
+export default FormProduct

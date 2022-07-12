@@ -7,6 +7,7 @@ import { validEmailRegex } from '../../../../utils'
 import Footer from '../../../home/components/defaultLayout/footer/Footer'
 import CustomSelectFormik from '../../../home/components/customSelectFormik/CustomSelectFormik'
 import { ACCESS_LEVEL_OPTIONS, ROLE_OPTIONS } from '../../utils'
+import FormInput from '../../../home/components/formInput/FormInput'
 
 interface Props {
   handleCreate(values: IUserCreateUpdate): void
@@ -78,68 +79,50 @@ const FormCreateUser = (props: Props) => {
           <>
             <Form>
               {/* FIRST NAME */}
-              <div className="form">
-                <label htmlFor="firstName">
-                  First Name
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="firstName" label="First Name">
+                <>
                   <Field type="text" id="firstName" name="firstName" className="input-field" />
                   {errors && errors?.firstName && touched?.firstName && (
                     <small className="text-danger">{errors?.firstName}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* LAST NAME */}
-              <div className="form">
-                <label htmlFor="lastName">
-                  Last Name
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="lastName" label="Last Name">
+                <>
                   <Field type="text" id="lastName" name="lastName" className="input-field" />
                   {errors && errors?.lastName && touched?.lastName && (
                     <small className="text-danger">{errors?.lastName}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* EMAIL */}
-              <div className="form">
-                <label htmlFor="email">
-                  Email
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="email" label=" Email">
+                <>
                   <Field type="text" id="email" name="email" className="input-field" />
                   {errors && errors?.email && touched?.email && <small className="text-danger">{errors?.email}</small>}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* PASSWORD */}
-              <div className="form">
-                <label htmlFor="password">
-                  Password
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="password" label="Password">
+                <>
                   <Field type="password" id="password" name="password" className="input-field" />
                   {errors && errors?.password && touched?.password && (
                     <small className="text-danger">{errors?.password}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* CONFIRM PASSWORD */}
-              <div className="form">
-                <label htmlFor="confirm_password">
-                  Confirm Password
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="confirm_password" label="Confirm Password">
+                <>
                   <Field type="password" id="confirm_password" name="confirm_password" className="input-field" />
                   {errors && errors?.confirm_password && touched?.confirm_password && (
                     <small className="text-danger">{errors?.confirm_password}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
+              <div className="seprated-space"></div>
+              <h4 className="title-sub my-3">Access Information</h4>
               {/* TYPE */}
               <div className="form">
                 <label htmlFor="type">
@@ -213,6 +196,8 @@ const FormCreateUser = (props: Props) => {
                   <Field type="checkbox" id="forceChangePassword" name="forceChangePassword" />
                 </div>
               </div>
+              <div className="seprated-space"></div>
+              <h4 className="title-sub my-3">Tax Information</h4>
               {/* Tax exempt */}
               <div className="form">
                 <label htmlFor="taxExempt">Tax exempt</label>

@@ -112,7 +112,6 @@ const UserFilter = () => {
   }, [countryList])
 
   // ---------------------- LIST ACTION CHANGE --------------------------------------
-
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
     const value = e.target.value
