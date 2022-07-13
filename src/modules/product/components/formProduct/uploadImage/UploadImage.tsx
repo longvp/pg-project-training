@@ -1,21 +1,19 @@
 import { faCamera, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { IImage } from '../../../../models/product'
+import { IImage, IProductCreate } from '../../../../../models/product'
 import './UploadImage.scss'
 import { v4 as uuidv4 } from 'uuid'
-import { IProductCreate } from './../../../../models/product'
 
 interface Props {
   setImagesOrder(imagesOrder: string[]): void // LƯU TÊN ẢNH
   setImagesFile(imagesFile: File[]): void // LƯU FILE ẢNH
-  setMessValidImage(mess: string): void
   productDetail: IProductCreate
   setDeletedImages(arrIDImageDeleted: number[]): void
 }
 
 const UploadImage = (props: Props) => {
-  const { setImagesOrder, setImagesFile, setMessValidImage, productDetail, setDeletedImages } = props
+  const { setImagesOrder, setImagesFile, productDetail, setDeletedImages } = props
 
   const [imgFiles, setImgFiles] = React.useState<any[]>([]) // LƯU FILE ẢNH
   const [imageNames, setImageNames] = React.useState<string[]>([]) // LƯU TÊN ẢNH
@@ -49,15 +47,15 @@ const UploadImage = (props: Props) => {
     URL.revokeObjectURL(imageUrls[index].file)
   }
 
-  React.useEffect(() => {
-    return () => {
-      if (imageUrls && imageUrls.length > 0) {
-        for (let i = 0; i < imageUrls.length; i++) {
-          URL.revokeObjectURL(imageUrls[i].file)
-        }
-      }
-    }
-  }, [])
+  // React.useEffect(() => {
+  //   return () => {
+  //     if (imageUrls && imageUrls.length > 0) {
+  //       for (let i = 0; i < imageUrls.length; i++) {
+  //         URL.revokeObjectURL(imageUrls[i].file)
+  //       }
+  //     }
+  //   }
+  // }, [])
 
   React.useEffect(() => {
     setImagesOrder(imageNames)
@@ -68,15 +66,6 @@ const UploadImage = (props: Props) => {
   }, [imgFiles])
 
   React.useEffect(() => {
-    if (imageUrls.length === 0) {
-      setMessValidImage('Image is required')
-    }
-    if (imageUrls.length > 0) {
-      setMessValidImage('')
-    }
-  }, [imageUrls]) //imageUrls
-
-  React.useEffect(() => {
     if (productDetail.id && productDetail.images) {
       setImageUrls(
         productDetail.images.map((img) => ({
@@ -85,6 +74,7 @@ const UploadImage = (props: Props) => {
           thumbs: img?.thumbs,
         })),
       )
+      setImageNames(productDetail.images.map((img) => (img.file ? img.file : '')))
     }
   }, [productDetail])
 

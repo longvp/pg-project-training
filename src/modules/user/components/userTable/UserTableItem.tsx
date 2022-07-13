@@ -43,6 +43,9 @@ const UserTableItem = (props: Props) => {
     <>
       <tr className={`${isSelectedDelete ? 'isSelectedDelete' : ''}`}>
         <td>
+          <input type="checkbox" checked={isSelectedDelete} onChange={() => handleSelectedDelete()} />
+        </td>
+        <td>
           <NavLink to={`/user-detail/${user.profile_id}`} className="link">
             {user.vendor}
           </NavLink>

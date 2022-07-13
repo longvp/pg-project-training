@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from 'formik'
 import React from 'react'
-import { IProductCreate } from '../../../../models/product'
+import { IProductCreate, IShippingZone } from '../../../../models/product'
 import Footer from '../../../home/components/defaultLayout/footer/Footer'
 import VendorField from '../vendorField/VendorField'
 import * as yup from 'yup'
@@ -19,11 +19,11 @@ import {
 } from '../../utils'
 import { ICategory } from '../../../../models/category'
 import JoditEditor from 'jodit-react'
-import UploadImage from '../uploadImage/UploadImage'
+import UploadImage from './uploadImage/UploadImage'
 import moment from 'moment'
 import FormInput from '../../../home/components/formInput/FormInput'
-import { ICountry } from '../../../../models/country'
 import { NavLink } from 'react-router-dom'
+import Shipping from './shipping/ShippingList'
 
 interface Props {
   loading: boolean
@@ -36,11 +36,11 @@ interface Props {
   setImagesOrder(imagesOrder: string[]): void
   setImagesFile(imagesFile: File[]): void
   messValidImage: string
-  setMessValidImage(mess: string): void
   productDetail: IProductCreate
   nameVendor: string
   setDeletedImages(arrIDImageDeleted: number[]): void
   statusAction: string
+  setShippingZone(list: IShippingZone[]): void
 }
 
 const FormProduct = (props: Props) => {
@@ -55,17 +55,16 @@ const FormProduct = (props: Props) => {
     setImagesOrder,
     setImagesFile,
     messValidImage,
-    setMessValidImage,
     productDetail,
     nameVendor,
     setDeletedImages,
     statusAction,
+    setShippingZone,
   } = props
 
-  const { brandList, categoryList, countryList } = useSelector((state: AppState) => ({
+  const { brandList, categoryList } = useSelector((state: AppState) => ({
     brandList: state.product.brandList,
     categoryList: state.product.categoryList,
-    countryList: state.user.countryList,
   }))
 
   const [initialValues, setInitialValues] = React.useState<IProductCreate>({
@@ -189,26 +188,6 @@ const FormProduct = (props: Props) => {
     }
   }, [categoryList])
 
-  //-------- BUILD COUNTRY OPTION ---------
-  const [countryOptions, setCountryOptions] = React.useState<IOption[]>([])
-
-  const buildCountryOptions = (countryList: ICountry[]) => {
-    const result: IOption[] = []
-    result.push({ label: 'Select new zone', value: '' })
-    if (countryList && countryList.length > 0) {
-      countryList.map((c) => {
-        result.push({ label: c.country, value: c.code })
-      })
-    }
-    return result
-  }
-
-  React.useEffect(() => {
-    if (countryList && countryList.length > 0) {
-      setCountryOptions(buildCountryOptions(countryList))
-    }
-  }, [countryList])
-
   return (
     <>
       <Formik
@@ -281,7 +260,6 @@ const FormProduct = (props: Props) => {
                   <UploadImage
                     setImagesOrder={setImagesOrder}
                     setImagesFile={setImagesFile}
-                    setMessValidImage={setMessValidImage}
                     productDetail={productDetail}
                     setDeletedImages={setDeletedImages}
                   />
@@ -376,19 +354,7 @@ const FormProduct = (props: Props) => {
               </FormInput>
               <div className="seprated-space"></div>
               <h4 className="title-sub my-3">Shipping</h4>
-              {/* <FormInput label="Continental U.S. ($)">
-                <Field type="number" id="" name="" className="input-field" placeholder="$" />
-              </FormInput> */}
-              {/* SEECT ZONE */}
-              <FormInput>
-                <Field
-                  placeholder="Select zone"
-                  name="brand_id"
-                  options={countryOptions}
-                  component={CustomSelectFormik}
-                  isMulti={false}
-                />
-              </FormInput>
+              <Shipping setShippingZone={setShippingZone} />
               <div className="seprated-space"></div>
               <h4 className="title-sub my-3">Marketing</h4>
               {/* Open Graph meta tags */}

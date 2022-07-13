@@ -33,16 +33,21 @@ const UserTableThead = (props: Props) => {
   }
 
   return (
-    <th>
-      <button type="button" disabled={sortOption.value === '' ? true : false} onClick={() => handleSort()}>
-        {sortOption.label}
-        {filterFieldUser.sort === sortOption.value ? (
-          <FontAwesomeIcon className="icon" icon={filterFieldUser.order_by === ORDER_BY.ASC ? faUpLong : faDownLong} />
-        ) : (
-          ''
-        )}
-      </button>
-    </th>
+    <>
+      <th>
+        <button type="button" disabled={sortOption.value === '' ? true : false} onClick={() => handleSort()}>
+          {sortOption.label}
+          {filterFieldUser.sort === sortOption.value ? (
+            <FontAwesomeIcon
+              className="icon"
+              icon={filterFieldUser.order_by === ORDER_BY.ASC ? faUpLong : faDownLong}
+            />
+          ) : (
+            ''
+          )}
+        </button>
+      </th>
+    </>
   )
 }
 

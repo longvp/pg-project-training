@@ -124,12 +124,8 @@ const FormCreateUser = (props: Props) => {
               <div className="seprated-space"></div>
               <h4 className="title-sub my-3">Access Information</h4>
               {/* TYPE */}
-              <div className="form">
-                <label htmlFor="type">
-                  Type
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="type" label="Type">
+                <>
                   <Field
                     placeholder="Select type"
                     name="paymentRailsType"
@@ -140,15 +136,11 @@ const FormCreateUser = (props: Props) => {
                   {errors && errors?.paymentRailsType && touched?.paymentRailsType && (
                     <small className="text-danger">{errors?.paymentRailsType}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* Access Level */}
-              <div className="form">
-                <label htmlFor="accessLevel">
-                  Access Level
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="accessLevel" label="Access Level">
+                <>
                   <Field
                     placeholder="Select level"
                     name="access_level"
@@ -159,52 +151,40 @@ const FormCreateUser = (props: Props) => {
                   {errors && errors?.access_level && touched?.access_level && (
                     <small className="text-danger">{errors?.access_level}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* ROLES */}
               {values.access_level === '100' && (
-                <div className="form">
-                  <label htmlFor="role">Roles</label>
-                  <div className="input-container">
-                    <Field
-                      placeholder="Select roles"
-                      name="roles"
-                      options={ROLE_OPTIONS}
-                      component={CustomSelectFormik}
-                      isMulti={true}
-                    />
-                  </div>
-                </div>
+                <FormInput htmlFor="role" label="Roles">
+                  <Field
+                    placeholder="Select roles"
+                    name="roles"
+                    options={ROLE_OPTIONS}
+                    component={CustomSelectFormik}
+                    isMulti={true}
+                  />
+                </FormInput>
               )}
               {/* MEMBERSHIP */}
-              <div className="form">
-                <label htmlFor="membership">Membership</label>
-                <div className="input-container">
-                  <Field
-                    placeholder="Select membership"
-                    name="membership_id"
-                    options={membershipOptions}
-                    component={CustomSelectFormik}
-                    isMulti={false}
-                  />
-                </div>
-              </div>
+              <FormInput htmlFor="membership" label="Membership">
+                <Field
+                  placeholder="Select membership"
+                  name="membership_id"
+                  options={membershipOptions}
+                  component={CustomSelectFormik}
+                  isMulti={false}
+                />
+              </FormInput>
               {/* Require to change password on next log in */}
-              <div className="form">
-                <label htmlFor="forceChangePassword">Require to change password on next log in</label>
-                <div className="input-container">
-                  <Field type="checkbox" id="forceChangePassword" name="forceChangePassword" />
-                </div>
-              </div>
+              <FormInput htmlFor="forceChangePassword" label="Require to change password on next log in">
+                <Field type="checkbox" id="forceChangePassword" name="forceChangePassword" />
+              </FormInput>
               <div className="seprated-space"></div>
               <h4 className="title-sub my-3">Tax Information</h4>
               {/* Tax exempt */}
-              <div className="form">
-                <label htmlFor="taxExempt">Tax exempt</label>
-                <div className="input-container">
-                  <Field type="checkbox" id="taxExempt" name="taxExempt" />
-                </div>
-              </div>
+              <FormInput htmlFor="taxExempt" label="Tax exempt">
+                <Field type="checkbox" id="taxExempt" name="taxExempt" />
+              </FormInput>
               <Footer>
                 <button type="submit" className="btn-footer" disabled={loading}>
                   {loading && <div className="spinner-border spinner-border-sm text-light mr-2" role="status" />}

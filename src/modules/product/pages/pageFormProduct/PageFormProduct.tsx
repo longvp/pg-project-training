@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { IProductCreate } from '../../../../models/product'
+import { IProductCreate, IShippingZone } from '../../../../models/product'
 import { AppState } from '../../../../redux/reducer'
 import { Action } from 'redux'
 import BackPage from '../../../home/components/backPage/BackPage'
@@ -13,8 +13,9 @@ import { setCountryList } from '../../../user/redux/userReducer'
 import { toast } from 'react-toastify'
 import Loading from '../../../home/components/loading/Loading'
 import { useHistory, useParams } from 'react-router'
-import { dateFormat, STATUS_ACTION } from '../../utils'
+import { STATUS_ACTION } from '../../utils'
 import { ROUTES } from '../../../../configs/routes'
+import { dateFormat } from '../../../../utils'
 
 const PageCreateProduct = () => {
   // ---------------------------- CREATE PRODUCT ------------------------------------
@@ -52,6 +53,17 @@ const PageCreateProduct = () => {
   const [imagesOrder, setImagesOrder] = React.useState<string[]>([])
   const [imagesFile, setImagesFile] = React.useState<any[]>([])
   const [messValidImage, setMessValidImage] = React.useState<string>('')
+
+  React.useEffect(() => {
+    if (imagesOrder.length > 0) {
+      setMessValidImage('')
+    } else {
+      setMessValidImage('Image is required')
+    }
+  }, [imagesOrder])
+
+  // ------------- SHIPPING ZONE ---------
+  const [shippingZone, setShippingZone] = React.useState<IShippingZone[]>([])
 
   // ------------- GET BRAND LIST -------
   const getBrandList = React.useCallback(async () => {
@@ -132,6 +144,7 @@ const PageCreateProduct = () => {
     sort_description: '',
     weight: '',
   })
+
   const [nameVendor, setNameVendor] = React.useState<string>('')
   const [deletedImages, setDeletedImages] = React.useState<number[]>([])
   const [statusAction, setStatusAction] = React.useState<string>(STATUS_ACTION.CREATE)
@@ -181,7 +194,8 @@ const PageCreateProduct = () => {
   // -------- ACTION CREATE - UPDATE --------------
   const handleCreate = React.useCallback(
     async (values: IProductCreate) => {
-      // if (!idVendor || !description || messValidImage !== '') {
+      console.log('ship: ', shippingZone)
+      // if (idVendor === '' || description === '' || messValidImage !== '') {
       //   return
       // }
       setLoading(true)
@@ -198,31 +212,30 @@ const PageCreateProduct = () => {
         imagesOrder,
         deleted_images: deletedImages,
       }
-      console.log('pó: ', postValues)
-      const formData = new FormData()
-      formData.append('productDetail', JSON.stringify(postValues))
-      const json = await dispatch(fetchThunk(API_PATHS.productCreate, 'post', formData, true, 'multipart/form-data'))
-      // ------------- UPLOAD IMAGE -----------------
-      if (json?.success) {
-        if (imagesOrder.length > 0) {
-          const formDataImage = new FormData()
-          formDataImage.append('productId', json?.data)
-          for (let i = 0; i < imagesFile.length; i++) {
-            formDataImage.append('order', `${i}`)
-            formDataImage.append('images[]', imagesFile[i])
-            await dispatch(fetchThunk(API_PATHS.uploadImage, 'post', formDataImage, true, 'multipart/form-data'))
-            formDataImage.delete('order')
-            formDataImage.delete('images[]')
-          }
-        }
-        toast.success(`${statusAction === STATUS_ACTION.UPDATE ? 'Update' : 'Create'} product success`)
-        history.push(ROUTES.manageProduct)
-      } else {
-        toast.error(json.errors)
-      }
+      // const formData = new FormData()
+      // formData.append('productDetail', JSON.stringify(postValues))
+      // const json = await dispatch(fetchThunk(API_PATHS.productCreate, 'post', formData, true, 'multipart/form-data'))
+      // // ------------- UPLOAD IMAGE -----------------
+      // if (json?.success) {
+      //   if (imagesOrder.length > 0) {
+      //     const formDataImage = new FormData()
+      //     formDataImage.append('productId', json?.data)
+      //     for (let i = 0; i < imagesFile.length; i++) {
+      //       formDataImage.append('order', `${i}`)
+      //       formDataImage.append('images[]', imagesFile[i])
+      //       await dispatch(fetchThunk(API_PATHS.uploadImage, 'post', formDataImage, true, 'multipart/form-data'))
+      //       formDataImage.delete('order')
+      //       formDataImage.delete('images[]')
+      //     }
+      //   }
+      //   toast.success(`${statusAction === STATUS_ACTION.UPDATE ? 'Update' : 'Create'} product success`)
+      //   history.push(ROUTES.manageProduct)
+      // } else {
+      //   toast.error(json.errors)
+      // }
       setLoading(false)
     },
-    [idVendor, description, imagesOrder],
+    [idVendor, description, messValidImage, imagesOrder, shippingZone],
   )
 
   return (
@@ -230,7 +243,7 @@ const PageCreateProduct = () => {
       <div className="page">
         <BackPage />
         <div className="title">
-          Create Product
+          {productDetail?.name || 'Create Product'}
           <hr />
         </div>
         <FormProduct
@@ -244,11 +257,11 @@ const PageCreateProduct = () => {
           setImagesOrder={setImagesOrder}
           setImagesFile={setImagesFile}
           messValidImage={messValidImage}
-          setMessValidImage={setMessValidImage}
           productDetail={productDetail}
           nameVendor={nameVendor}
           setDeletedImages={setDeletedImages}
           statusAction={statusAction}
+          setShippingZone={setShippingZone}
         />
       </div>
       {loading && <Loading />}

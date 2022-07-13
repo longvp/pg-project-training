@@ -12,6 +12,7 @@ import { ICountry } from './../../../../models/country'
 import { IRole } from '../../../../models/role'
 import { IOption } from '../../../../models/option'
 import { MEMBERSHIP_FILTER_OPTION, STATUS_OPTIONS } from '../../utils'
+import FilterRangeDate from './FilterRangeDate'
 
 const UserFilter = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
@@ -21,9 +22,7 @@ const UserFilter = () => {
     countryList: state.user.countryList,
     roleList: state.user.roleList,
   }))
-
   const [isShowFilterHide, setIsShowFilterHide] = React.useState<boolean>(false)
-
   const [filterField, setFilterField] = React.useState<IFilterFieldUser>({
     country: '',
     search: '',
@@ -39,6 +38,7 @@ const UserFilter = () => {
     status: [],
     tz: 7,
   })
+  const [rangeDate, setRangeDate] = React.useState<string[]>([])
 
   React.useEffect(() => {
     if (filterFieldUser) {
@@ -148,6 +148,10 @@ const UserFilter = () => {
     }
   }
 
+  React.useEffect(() => {
+    setFilterField({ ...filterField, date_range: rangeDate })
+  }, [rangeDate])
+
   //--------------------------- SEARCH ACTION ----------------------------
   const handleSearch = () => {
     dispatch(setFilterFieldUser(filterField))
@@ -253,10 +257,11 @@ const UserFilter = () => {
                 <label>Last logged in</label>
               </div>
             </div>
-            <div className="filter-date">
+            {/* <div className="filter-date">
               <label>Enter range date</label>
               <input type="date" className="input-field" />
-            </div>
+            </div> */}
+            <FilterRangeDate setRangeDate={setRangeDate} />
           </div>
         </div>
       </div>

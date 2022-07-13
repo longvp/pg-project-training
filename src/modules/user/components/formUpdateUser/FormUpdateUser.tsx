@@ -10,6 +10,7 @@ import CustomSelectFormik from '../../../home/components/customSelectFormik/Cust
 import { STATUS_OPTIONS, ACCESS_LEVEL_OPTIONS } from '../../utils'
 import { IOption } from '../../../../models/option'
 import { IRole } from '../../../../models/role'
+import FormInput from '../../../home/components/formInput/FormInput'
 
 interface Props {
   handleUpdate(values: IUserCreateUpdate): void
@@ -42,7 +43,6 @@ const FormUpdateUser = (props: Props) => {
 
   React.useEffect(() => {
     if (userDetail) {
-      console.log('use: ', userDetail.roles)
       setInitialValues({
         firstName: userDetail.firstName ? userDetail.firstName : '',
         lastName: userDetail.lastName ? userDetail.lastName : '',
@@ -61,8 +61,6 @@ const FormUpdateUser = (props: Props) => {
       })
     }
   }, [userDetail])
-
-  console.log('i u: ', initialValues)
 
   const validationSchema = yup.object({
     firstName: yup.string().required('First Name is required'),
@@ -122,68 +120,48 @@ const FormUpdateUser = (props: Props) => {
             <Form>
               {/* FIRST NAME */}
               <h4 className="title-sub">Email & password</h4>
-              <div className="form">
-                <label htmlFor="firstName">
-                  First Name
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="firstName" label="First Name">
+                <>
                   <Field type="text" id="firstName" name="firstName" className="input-field" />
                   {errors && errors?.firstName && touched?.firstName && (
                     <small className="text-danger">{errors?.firstName}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* LAST NAME */}
-              <div className="form">
-                <label htmlFor="lastName">
-                  Last Name
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="lastName" label=" Last Name">
+                <>
                   <Field type="text" id="lastName" name="lastName" className="input-field" />
                   {errors && errors?.lastName && touched?.lastName && (
                     <small className="text-danger">{errors?.lastName}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* EMAIL */}
-              <div className="form">
-                <label htmlFor="email">
-                  Email
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="email" label="Email">
+                <>
                   <Field type="text" id="email" name="email" className="input-field" />
                   {errors && errors?.email && touched?.email && <small className="text-danger">{errors?.email}</small>}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* PASSWORD */}
-              <div className="form">
-                <label htmlFor="password">
-                  Password
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="password" label="Password">
+                <>
                   <Field type="password" id="password" name="password" className="input-field" />
                   {errors && errors?.password && touched?.password && (
                     <small className="text-danger">{errors?.password}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* CONFIRM PASSWORD */}
-              <div className="form">
-                <label htmlFor="confirm_password">
-                  Confirm Password
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
+              <FormInput isRequired htmlFor="confirm_password" label="Confirm Password">
+                <>
                   <Field type="password" id="confirm_password" name="confirm_password" className="input-field" />
                   {errors && errors?.confirm_password && touched?.confirm_password && (
                     <small className="text-danger">{errors?.confirm_password}</small>
                   )}
-                </div>
-              </div>
+                </>
+              </FormInput>
               {/* TYPE */}
               <div className="form">
                 <label>Type</label>
@@ -205,71 +183,50 @@ const FormUpdateUser = (props: Props) => {
               </div>
               {/* ROLES */}
               {values.access_level && +values.access_level === 100 && (
-                <div className="form">
-                  <label htmlFor="role">Roles</label>
-                  <div className="input-container">
-                    <Field
-                      placeholder="Select roles"
-                      name="roles"
-                      options={roleOptions}
-                      component={CustomSelectFormik}
-                      isMulti={true}
-                    />
-                  </div>
-                </div>
+                <FormInput htmlFor="role" label="Roles">
+                  <Field
+                    placeholder="Select roles"
+                    name="roles"
+                    options={roleOptions}
+                    component={CustomSelectFormik}
+                    isMulti={true}
+                  />
+                </FormInput>
               )}
               {/* ACCOUNT STATUS */}
-              <div className="form">
-                <label htmlFor="status">
-                  Account status
-                  <span className="required">*</span>
-                </label>
-                <div className="input-container">
-                  <Field
-                    placeholder="Select status"
-                    name="status"
-                    options={STATUS_OPTIONS}
-                    component={CustomSelectFormik}
-                    isMulti={false}
-                  />
-                </div>
-              </div>
+              <FormInput htmlFor="status" label="Account status">
+                <Field
+                  placeholder="Select status"
+                  name="status"
+                  options={STATUS_OPTIONS}
+                  component={CustomSelectFormik}
+                  isMulti={false}
+                />
+              </FormInput>
               {/* STATUS COMMENT*/}
-              <div className="form">
-                <label htmlFor="comment">Status comment (reason)</label>
-                <div className="input-container">
-                  <Field as="textarea" name="statusComment" />
-                </div>
-              </div>
+              <FormInput htmlFor="statusComment" label="Status comment (reason)">
+                <Field as="textarea" id="statusComment" name="statusComment" />
+              </FormInput>
               {/* MEMBERSHIP */}
-              <div className="form">
-                <label htmlFor="membership">Membership</label>
-                <div className="input-container">
-                  <Field
-                    placeholder="Select membership"
-                    name="membership_id"
-                    options={membershipOptions}
-                    component={CustomSelectFormik}
-                    isMulti={false}
-                  />
-                </div>
-              </div>
+              <FormInput htmlFor="membership" label="Membership">
+                <Field
+                  placeholder="Select membership"
+                  name="membership_id"
+                  options={membershipOptions}
+                  component={CustomSelectFormik}
+                  isMulti={false}
+                />
+              </FormInput>
               {/* Require to change password on next log in */}
-              <div className="form">
-                <label htmlFor="forceChangePassword">Require to change password on next log in</label>
-                <div className="input-container">
-                  <Field type="checkbox" id="forceChangePassword" name="forceChangePassword" />
-                </div>
-              </div>
+              <FormInput htmlFor="forceChangePassword" label="Require to change password on next log in">
+                <Field type="checkbox" id="forceChangePassword" name="forceChangePassword" />
+              </FormInput>
               <div className="seprated-space"></div>
               <h4 className="title-sub my-3">Tax information</h4>
               {/* Tax exempt */}
-              <div className="form">
-                <label htmlFor="taxExempt">Tax exempt</label>
-                <div className="input-container">
-                  <Field type="checkbox" id="taxExempt" name="taxExempt" />
-                </div>
-              </div>
+              <FormInput htmlFor="taxExempt" label="Tax exempt">
+                <Field type="checkbox" id="taxExempt" name="taxExempt" />
+              </FormInput>
               <Footer>
                 <button
                   type="submit"

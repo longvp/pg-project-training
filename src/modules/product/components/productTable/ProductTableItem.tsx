@@ -43,6 +43,9 @@ const ProductTableItem = (props: Props) => {
   return (
     <>
       <tr className={`${isSelectedDelete ? 'isSelectedDelete' : ''}`}>
+        <td>
+          <input type="checkbox" checked={isSelectedDelete} onChange={() => handleSelectedDelete()} />
+        </td>
         <td>{product.sku}</td>
         <td>
           <NavLink to={`/product-detail/${product.id}`} className="link">
@@ -50,12 +53,8 @@ const ProductTableItem = (props: Props) => {
           </NavLink>
         </td>
         <td>{product.category}</td>
-        <td>
-          <input className="input-td" value={formatCurrency(+product.price)} />
-        </td>
-        <td>
-          <input className="input-td" value={product.amount} />
-        </td>
+        <td>{formatCurrency(+product.price)}</td>
+        <td>{product.amount}</td>
         <td>{product.vendor}</td>
         <td>{+product.arrivalDate > 0 ? moment(+product.arrivalDate * 1000).format('ll') : '---'}</td>
         <td>
