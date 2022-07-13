@@ -7,15 +7,16 @@ import { IOption } from '../../../../../models/option'
 import { AppState } from '../../../../../redux/reducer'
 import FormInput from '../../../../home/components/formInput/FormInput'
 import Select from 'react-select'
-import { IShippingZone } from '../../../../../models/product'
+import { IProductCreate, IShippingZone } from '../../../../../models/product'
 import ShippingItem from './ShippingItem'
 
 interface Props {
   setShippingZone(list: IShippingZone[]): void
+  productDetail: IProductCreate
 }
 
 const ShippingList = (props: Props) => {
-  const { setShippingZone } = props
+  const { setShippingZone, productDetail } = props
 
   const { countryList } = useSelector((state: AppState) => ({
     countryList: state.user.countryList,
@@ -59,7 +60,7 @@ const ShippingList = (props: Props) => {
   ])
 
   React.useEffect(() => {
-    console.log('ship eff: ', shippingList)
+    setShippingZone(shippingList)
   }, [shippingList])
 
   const handleAddShipping = () => {
@@ -67,7 +68,7 @@ const ShippingList = (props: Props) => {
       setShippingList((previous) =>
         previous.concat({
           id: countrySelected.value,
-          price: '',
+          price: 0,
           zone_name: countrySelected.label,
         }),
       )
@@ -75,6 +76,12 @@ const ShippingList = (props: Props) => {
       setCountrySelected(countryOptions[0])
     }
   }
+
+  React.useEffect(() => {
+    if (productDetail && productDetail.id && productDetail.shipping) {
+      setShippingList(productDetail.shipping)
+    }
+  }, [productDetail])
 
   return (
     <>

@@ -53,7 +53,7 @@ const ProductTableItem = (props: Props) => {
           </NavLink>
         </td>
         <td>{product.category}</td>
-        <td>{formatCurrency(+product.price)}</td>
+        <td>{`$${formatCurrency(+product.price)}`}</td>
         <td>{product.amount}</td>
         <td>{product.vendor}</td>
         <td>{+product.arrivalDate > 0 ? moment(+product.arrivalDate * 1000).format('ll') : '---'}</td>

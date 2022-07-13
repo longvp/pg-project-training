@@ -2,6 +2,7 @@ import React from 'react'
 import { IOption } from '../../../../../models/option'
 import { IShippingZone } from '../../../../../models/product'
 import FormInput from '../../../../home/components/formInput/FormInput'
+import { formatCurrency } from './../../../../../utils/index'
 
 interface Props {
   shipItem: IShippingZone
@@ -14,12 +15,17 @@ interface Props {
 const ShippingItem = (props: Props) => {
   const { shipItem, shippingList, setShippingList, countryOptions, setCountryOptions } = props
 
-  const [shippings, setShippings] = React.useState<IShippingZone[]>(shippingList)
-  const [shipPrice, setShipPrice] = React.useState<number>(0)
+  const [shipPrice, setShipPrice] = React.useState<number | string>(0)
+
+  React.useEffect(() => {
+    if (shipItem && shipItem.price) {
+      setShipPrice(shipItem.price)
+    }
+  }, [shipItem])
 
   const handleChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     setShipPrice(+e.target.value)
-    const shipsNew = shippings
+    const shipsNew = shippingList
     const index = shipsNew.findIndex((s) => s.id === shipItem.id)
     if (index !== -1) {
       shipsNew[index].price = e.target.value
@@ -41,13 +47,20 @@ const ShippingItem = (props: Props) => {
     <>
       <FormInput label={`${shipItem.zone_name} ($)`}>
         <>
+          {/* value={formatCurrency(+shipPrice)} */}
           <input
-            type="number"
+            type="text"
             className="input-field"
             placeholder="$"
-            min="0"
             value={shipPrice}
             onChange={(e) => handleChangePrice(e)}
+            onKeyPress={(e) => {
+              if (!e.code.includes('Digit')) {
+                e.preventDefault()
+              } else {
+                return e
+              }
+            }}
           />
           {shipItem.id != 1 && (
             <span style={{ cursor: 'pointer', width: 'max-content' }} onClick={() => handleRemoveShipping()}>

@@ -194,10 +194,9 @@ const PageCreateProduct = () => {
   // -------- ACTION CREATE - UPDATE --------------
   const handleCreate = React.useCallback(
     async (values: IProductCreate) => {
-      console.log('ship: ', shippingZone)
-      // if (idVendor === '' || description === '' || messValidImage !== '') {
-      //   return
-      // }
+      if (idVendor === '' || description === '' || messValidImage !== '') {
+        return
+      }
       setLoading(true)
       const postValues = {
         ...values,
@@ -211,28 +210,29 @@ const PageCreateProduct = () => {
         google_feed_enabled: +values.google_feed_enabled,
         imagesOrder,
         deleted_images: deletedImages,
+        shipping_to_zones: shippingZone.map((s) => ({ id: s.id, price: s.price })),
       }
-      // const formData = new FormData()
-      // formData.append('productDetail', JSON.stringify(postValues))
-      // const json = await dispatch(fetchThunk(API_PATHS.productCreate, 'post', formData, true, 'multipart/form-data'))
-      // // ------------- UPLOAD IMAGE -----------------
-      // if (json?.success) {
-      //   if (imagesOrder.length > 0) {
-      //     const formDataImage = new FormData()
-      //     formDataImage.append('productId', json?.data)
-      //     for (let i = 0; i < imagesFile.length; i++) {
-      //       formDataImage.append('order', `${i}`)
-      //       formDataImage.append('images[]', imagesFile[i])
-      //       await dispatch(fetchThunk(API_PATHS.uploadImage, 'post', formDataImage, true, 'multipart/form-data'))
-      //       formDataImage.delete('order')
-      //       formDataImage.delete('images[]')
-      //     }
-      //   }
-      //   toast.success(`${statusAction === STATUS_ACTION.UPDATE ? 'Update' : 'Create'} product success`)
-      //   history.push(ROUTES.manageProduct)
-      // } else {
-      //   toast.error(json.errors)
-      // }
+      const formData = new FormData()
+      formData.append('productDetail', JSON.stringify(postValues))
+      const json = await dispatch(fetchThunk(API_PATHS.productCreate, 'post', formData, true, 'multipart/form-data'))
+      // ------------- UPLOAD IMAGE -----------------
+      if (json?.success) {
+        if (imagesOrder.length > 0) {
+          const formDataImage = new FormData()
+          formDataImage.append('productId', json?.data)
+          for (let i = 0; i < imagesFile.length; i++) {
+            formDataImage.append('order', `${i}`)
+            formDataImage.append('images[]', imagesFile[i])
+            await dispatch(fetchThunk(API_PATHS.uploadImage, 'post', formDataImage, true, 'multipart/form-data'))
+            formDataImage.delete('order')
+            formDataImage.delete('images[]')
+          }
+        }
+        toast.success(`${statusAction === STATUS_ACTION.UPDATE ? 'Update' : 'Create'} product success`)
+        history.push(ROUTES.manageProduct)
+      } else {
+        toast.error(json.errors)
+      }
       setLoading(false)
     },
     [idVendor, description, messValidImage, imagesOrder, shippingZone],

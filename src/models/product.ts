@@ -81,6 +81,7 @@ export interface IProductCreate {
   code?: string
   id?: number | string
   images?: IImage[]
+  shipping?: IShippingZone[]
   sort_description?: string
   weight?: number | string
 }

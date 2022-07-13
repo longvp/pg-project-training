@@ -15,7 +15,6 @@ const Modal = (props: Props) => {
   }))
 
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
-  console.log('modal: ', modalContent)
 
   const executeAction = () => {
     modalContent.handleAction()

@@ -24,6 +24,7 @@ import moment from 'moment'
 import FormInput from '../../../home/components/formInput/FormInput'
 import { NavLink } from 'react-router-dom'
 import Shipping from './shipping/ShippingList'
+import { formatCurrency } from './../../../../utils/index'
 
 interface Props {
   loading: boolean
@@ -202,6 +203,8 @@ const FormProduct = (props: Props) => {
           <>
             {values.og_tags_type == 1 ? values.og_tags : (values.og_tags = '')}
             {values.meta_desc_type === 'C' ? values.meta_description : (values.meta_description = '')}
+            {/* {(values.price = formatCurrency(+values.price))}
+            {(values.sale_price = formatCurrency(+values.sale_price))} */}
             <Form>
               <FormInput isRequired label="Vendor">
                 <>
@@ -314,7 +317,20 @@ const FormProduct = (props: Props) => {
               {/* PRICE */}
               <FormInput isRequired htmlFor="price" label="Price ($)">
                 <>
-                  <Field type="number" id="price" name="price" className="input-field" min="1" placeholder="$" />
+                  <Field
+                    type="text"
+                    id="price"
+                    name="price"
+                    className="input-field"
+                    placeholder="$"
+                    onKeyPress={(e: any) => {
+                      if (!e.code.includes('Digit')) {
+                        e.preventDefault()
+                      } else {
+                        return e
+                      }
+                    }}
+                  />
                   {errors && errors?.price && touched?.price && <small className="text-danger">{errors?.price}</small>}
                 </>
               </FormInput>
@@ -335,7 +351,20 @@ const FormProduct = (props: Props) => {
                   </FormInput>
                   {/* PRICE SALE */}
                   <FormInput label="Sale price" htmlFor="sale_price">
-                    <Field type="number" id="sale_price" name="sale_price" className="input-field" placeholder="$" />
+                    <Field
+                      type="text"
+                      id="sale_price"
+                      name="sale_price"
+                      className="input-field"
+                      placeholder="$"
+                      onKeyPress={(e: any) => {
+                        if (!e.code.includes('Digit')) {
+                          e.preventDefault()
+                        } else {
+                          return e
+                        }
+                      }}
+                    />
                   </FormInput>
                 </>
               )}
@@ -346,15 +375,29 @@ const FormProduct = (props: Props) => {
               {/*   QUANTITY */}
               <FormInput isRequired label="Quantity in stock" htmlFor="quantity">
                 <>
-                  <Field type="number" id="quantity" name="quantity" className="input-field" min="1" />
+                  <Field
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    className="input-field"
+                    min="1"
+                    onKeyPress={(e: any) => {
+                      if (!e.code.includes('Digit')) {
+                        e.preventDefault()
+                      } else {
+                        return e
+                      }
+                    }}
+                  />
                   {errors && errors?.quantity && touched?.quantity && (
                     <small className="text-danger">{errors?.quantity}</small>
                   )}
                 </>
               </FormInput>
               <div className="seprated-space"></div>
+              {/* SHIPPING */}
               <h4 className="title-sub my-3">Shipping</h4>
-              <Shipping setShippingZone={setShippingZone} />
+              <Shipping setShippingZone={setShippingZone} productDetail={productDetail} />
               <div className="seprated-space"></div>
               <h4 className="title-sub my-3">Marketing</h4>
               {/* Open Graph meta tags */}
