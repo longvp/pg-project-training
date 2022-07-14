@@ -203,8 +203,8 @@ const FormProduct = (props: Props) => {
           <>
             {values.og_tags_type == 1 ? values.og_tags : (values.og_tags = '')}
             {values.meta_desc_type === 'C' ? values.meta_description : (values.meta_description = '')}
-            {/* {(values.price = formatCurrency(+values.price))}
-            {(values.sale_price = formatCurrency(+values.sale_price))} */}
+            {(values.price = formatCurrency(+values.price.toString().replaceAll(',', '')))}
+            {(values.sale_price = formatCurrency(+values.sale_price.toString().replaceAll(',', '')))}
             <Form>
               <FormInput isRequired label="Vendor">
                 <>
@@ -350,7 +350,7 @@ const FormProduct = (props: Props) => {
                     />
                   </FormInput>
                   {/* PRICE SALE */}
-                  <FormInput label="Sale price" htmlFor="sale_price">
+                  <FormInput label="Sale price ($)" htmlFor="sale_price">
                     <Field
                       type="text"
                       id="sale_price"

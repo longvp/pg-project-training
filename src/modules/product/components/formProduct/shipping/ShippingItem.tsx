@@ -24,11 +24,12 @@ const ShippingItem = (props: Props) => {
   }, [shipItem])
 
   const handleChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShipPrice(+e.target.value)
+    const shipPrice = +e.target.value.toString().replaceAll(',', '')
+    setShipPrice(shipPrice)
     const shipsNew = shippingList
     const index = shipsNew.findIndex((s) => s.id === shipItem.id)
     if (index !== -1) {
-      shipsNew[index].price = e.target.value
+      shipsNew[index].price = shipPrice
     }
     setShippingList(shipsNew)
   }
@@ -47,12 +48,11 @@ const ShippingItem = (props: Props) => {
     <>
       <FormInput label={`${shipItem.zone_name} ($)`}>
         <>
-          {/* value={formatCurrency(+shipPrice)} */}
           <input
             type="text"
             className="input-field"
             placeholder="$"
-            value={shipPrice}
+            value={formatCurrency(+shipPrice.toString().replaceAll(',', ''))}
             onChange={(e) => handleChangePrice(e)}
             onKeyPress={(e) => {
               if (!e.code.includes('Digit')) {

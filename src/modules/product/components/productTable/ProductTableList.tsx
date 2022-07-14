@@ -28,6 +28,7 @@ const ProductTableList = () => {
           <thead>
             <tr>
               <th></th>
+              <th></th>
               {SORT_OPTION_THEAD &&
                 SORT_OPTION_THEAD.length > 0 &&
                 SORT_OPTION_THEAD.map((sort: IOption, index) => <ProductTableThead key={index} sortOption={sort} />)}

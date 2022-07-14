@@ -78,5 +78,12 @@
                 color: $black;
             }
         }
+        .icon-power{
+            cursor: pointer;
+            color: white;
+            &.enabled{
+                color: rgb(25, 241, 25);
+            }
+        }
     }
 }

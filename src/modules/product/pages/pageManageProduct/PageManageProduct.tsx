@@ -80,7 +80,7 @@ const PageManageProduct = () => {
   }, [])
 
   // -------------------------------- DELETE PRODUCT -----------------------
-  const deleteProduct = React.useCallback(async () => {
+  const handleDeleteProduct = React.useCallback(async () => {
     setIsLoading(true)
     const json = await dispatch(
       fetchThunk(API_PATHS.productDelete, 'post', {
@@ -97,16 +97,12 @@ const PageManageProduct = () => {
     setIsLoading(false)
   }, [productListSelectedDelete])
 
-  const handleDelete = () => {
-    deleteProduct()
-  }
-
   const showModal = () => {
     dispatch(
       setModalContent({
         title: 'Confirm Delete',
         text: 'Do you want to delete this product ?',
-        handleAction: handleDelete,
+        handleAction: handleDeleteProduct,
       }),
     )
     dispatch(setShowModal(true))

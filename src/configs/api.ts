@@ -46,4 +46,5 @@ export const API_PATHS = {
   productCreate: `${getBaseUrl(APIService.apiAdmin)}/products/create`,
   uploadImage: `${getBaseUrl(APIService.api)}/products/upload-image`,
   productDetail: `${getBaseUrl(APIService.apiAdmin)}/products/detail`,
+  productEdit: `${getBaseUrl(APIService.apiAdmin)}/products/edit`,
 }
