@@ -46,7 +46,7 @@ const FormCreateUser = (props: Props) => {
     confirm_password: '',
     paymentRailsType: '', //individual / business
     access_level: '', //Admin-100 / Vendor-10
-    roles: [],
+    roles: ['1'],
     membership_id: membershipOptions[0].value, //Ignore Membership / General
     forceChangePassword: false,
     taxExempt: false,
@@ -76,6 +76,7 @@ const FormCreateUser = (props: Props) => {
       >
         {({ values, errors, touched }) => (
           <>
+            {values.access_level == 10 ? (values.roles = []) : values.roles}
             <Form>
               {/* FIRST NAME */}
               <FormInput isRequired htmlFor="firstName" label="First Name">
@@ -153,7 +154,7 @@ const FormCreateUser = (props: Props) => {
                 </>
               </FormInput>
               {/* ROLES */}
-              {values.access_level === '100' && (
+              {values.access_level == 100 && (
                 <FormInput htmlFor="role" label="Roles">
                   <Field
                     placeholder="Select roles"

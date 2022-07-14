@@ -17,7 +17,7 @@ import { STATUS_ACTION } from '../../utils'
 import { ROUTES } from '../../../../configs/routes'
 import { dateFormat } from '../../../../utils'
 
-const PageCreateProduct = () => {
+const PageFormProduct = () => {
   // ---------------------------- CREATE PRODUCT ------------------------------------
   // --------------------------------------------------------------------------------
   // (vendor, images, description, shipping - value ko trong formik)
@@ -271,4 +271,4 @@ const PageCreateProduct = () => {
   )
 }
 
-export default PageCreateProduct
+export default PageFormProduct
