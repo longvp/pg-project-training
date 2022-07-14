@@ -10,7 +10,7 @@ import { API_PATHS } from '../../../../configs/api'
 import { toast } from 'react-toastify'
 import { useHistory } from 'react-router'
 import { ROUTES } from '../../../../configs/routes'
-import BackPage from '../../../home/components/backPage/BackPage'
+import BackPage from '../../../common/components/backPage/BackPage'
 
 const PageCreateUser = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()

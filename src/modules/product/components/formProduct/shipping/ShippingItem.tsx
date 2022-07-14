@@ -1,7 +1,7 @@
 import React from 'react'
 import { IOption } from '../../../../../models/option'
 import { IShippingZone } from '../../../../../models/product'
-import FormInput from '../../../../home/components/formInput/FormInput'
+import FormInput from '../../../../common/components/formInput/FormInput'
 import { formatCurrency } from './../../../../../utils/index'
 
 interface Props {

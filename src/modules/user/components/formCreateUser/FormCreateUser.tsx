@@ -1,13 +1,12 @@
 import { Field, Form, Formik } from 'formik'
 import React from 'react'
-import Select, { MultiValue, SingleValue } from 'react-select'
 import { IUserCreateUpdate } from '../../../../models/user'
 import * as yup from 'yup'
 import { validEmailRegex } from '../../../../utils'
-import Footer from '../../../home/components/defaultLayout/footer/Footer'
-import CustomSelectFormik from '../../../home/components/customSelectFormik/CustomSelectFormik'
+import Footer from '../../../defaultLayout/footer/Footer'
+import CustomSelectFormik from '../../../common/components/customSelectFormik/CustomSelectFormik'
 import { ACCESS_LEVEL_OPTIONS, ROLE_OPTIONS } from '../../utils'
-import FormInput from '../../../home/components/formInput/FormInput'
+import FormInput from '../../../common/components/formInput/FormInput'
 
 interface Props {
   handleCreate(values: IUserCreateUpdate): void

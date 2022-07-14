@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { AppState } from '../../../../../redux/reducer'
+import { AppState } from '../../../redux/reducer'
+
 import './Footer.scss'
 
 interface Props {

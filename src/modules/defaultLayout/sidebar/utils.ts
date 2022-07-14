@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../../../configs/routes'
+import { ROUTES } from '../../../configs/routes'
 import { faTag, faUserGroup } from '@fortawesome/free-solid-svg-icons'
 
 export const MENU_SIDEBAR = [

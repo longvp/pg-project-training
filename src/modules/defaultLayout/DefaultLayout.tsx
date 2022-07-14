@@ -3,7 +3,7 @@ import Header from './header/Header'
 import Sidebar from './sidebar/Sidebar'
 import './DefaultLayout.scss'
 import { useSelector } from 'react-redux'
-import { AppState } from '../../../../redux/reducer'
+import { AppState } from '../../redux/reducer'
 
 interface Props {
   children: JSX.Element

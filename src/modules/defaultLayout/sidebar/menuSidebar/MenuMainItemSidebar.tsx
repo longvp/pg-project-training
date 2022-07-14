@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { AppState } from '../../../../../../redux/reducer'
+import { AppState } from '../../../../redux/reducer'
 
 interface Props {
   menuItem: any

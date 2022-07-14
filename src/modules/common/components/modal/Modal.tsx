@@ -4,7 +4,7 @@ import { ThunkDispatch } from 'redux-thunk'
 import { AppState } from '../../../../redux/reducer'
 import { Action } from 'redux'
 import './Modal.scss'
-import { setShowModal } from '../../redux/homeReducer'
+import { setShowModal } from '../../../home/redux/homeReducer'
 
 interface Props {}
 

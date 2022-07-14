@@ -3,14 +3,14 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { IUserCreateUpdate } from '../../../../models/user'
 import { AppState } from '../../../../redux/reducer'
-import Footer from '../../../home/components/defaultLayout/footer/Footer'
+import Footer from '../../../defaultLayout/footer/Footer'
 import * as yup from 'yup'
 import { validEmailRegex } from '../../../../utils'
-import CustomSelectFormik from '../../../home/components/customSelectFormik/CustomSelectFormik'
+import CustomSelectFormik from '../../../common/components/customSelectFormik/CustomSelectFormik'
 import { STATUS_OPTIONS, ACCESS_LEVEL_OPTIONS } from '../../utils'
 import { IOption } from '../../../../models/option'
 import { IRole } from '../../../../models/role'
-import FormInput from '../../../home/components/formInput/FormInput'
+import FormInput from '../../../common/components/formInput/FormInput'
 
 interface Props {
   handleUpdate(values: IUserCreateUpdate): void

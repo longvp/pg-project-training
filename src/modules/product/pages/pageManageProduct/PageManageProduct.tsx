@@ -5,12 +5,12 @@ import { ThunkDispatch } from 'redux-thunk'
 import { ROUTES } from '../../../../configs/routes'
 import { AppState } from '../../../../redux/reducer'
 import { Action } from 'redux'
-import Footer from '../../../home/components/defaultLayout/footer/Footer'
+import Footer from '../../../defaultLayout/footer/Footer'
 import ProductFilter from '../../components/productFilter/ProductFilter'
 import ProductTableList from '../../components/productTable/ProductTableList'
 import { fetchThunk } from '../../../common/redux/thunk'
 import { API_PATHS } from '../../../../configs/api'
-import Loading from '../../../home/components/loading/Loading'
+import Loading from '../../../common/components/loading/Loading'
 import {
   setCategoryList,
   setProductList,
@@ -19,7 +19,7 @@ import {
 } from '../../redux/productReducer'
 import ProductPagination from '../../components/productPagination/ProductPagination'
 import { setModalContent, setShowModal } from '../../../home/redux/homeReducer'
-import Modal from '../../../home/components/modal/Modal'
+import Modal from '../../../common/components/modal/Modal'
 import { toast } from 'react-toastify'
 
 const PageManageProduct = () => {
