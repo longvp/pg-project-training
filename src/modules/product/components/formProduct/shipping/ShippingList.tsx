@@ -110,7 +110,7 @@ const ShippingList = (props: Props) => {
           {countrySelected?.value && (
             <span
               className="my-2"
-              style={{ cursor: 'pointer', width: 'max-content' }}
+              style={{ cursor: 'pointer', width: 'max-content', color: 'orange' }}
               onClick={() => handleAddShipping()}
             >
               Add Shipping Zone

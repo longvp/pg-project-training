@@ -63,7 +63,10 @@ const ShippingItem = (props: Props) => {
             }}
           />
           {shipItem.id != 1 && (
-            <span style={{ cursor: 'pointer', width: 'max-content' }} onClick={() => handleRemoveShipping()}>
+            <span
+              style={{ cursor: 'pointer', width: 'max-content', color: 'orange' }}
+              onClick={() => handleRemoveShipping()}
+            >
               Remove
             </span>
           )}

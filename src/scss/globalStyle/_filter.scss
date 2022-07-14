@@ -25,6 +25,7 @@
     justify-content: space-between;
     padding: 20px;
     flex-wrap: wrap;
+    gap: 10px;
     .btn-search{
         display: block;
         color: white;
@@ -43,6 +44,7 @@
 .filter-hide{
     display: none;
     align-items: flex-start;
+    flex-wrap: wrap;
     // justify-content: space-between;
     gap: 20px;
     padding: 20px;

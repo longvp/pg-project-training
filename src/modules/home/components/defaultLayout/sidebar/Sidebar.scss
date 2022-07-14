@@ -101,22 +101,3 @@
     }
 }
 
-@media screen and (max-width: 1200px) {
-    .sidebar-container{
-        width: $sidebarWidthToggle;
-    }
-    .list-main-menu{
-        .item-main-menu{
-            .left{
-                .text-main{
-                    display: none;
-                }
-            }
-        }
-    }
-    .list-sub-menu{
-        .item-sub-menu{
-            padding: 15px 0 0 0;
-        }
-    }
-}

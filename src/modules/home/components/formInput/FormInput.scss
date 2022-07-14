@@ -1,0 +1,29 @@
+.form{
+    margin-bottom: 25px;
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+    label{
+        display: block;
+        width: 200px;
+        text-align: right;
+        .required{
+            margin-left: 5px;
+            color: red;
+        }
+    }
+    .input-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 5px;
+        width: 500px;
+        // .input-field{
+        //   width: 200px;
+        // }
+        input[type="checkbox"]{
+            //display: block;
+            width: 20px;
+        }
+    }
+}

@@ -82,10 +82,10 @@ const FormProduct = (props: Props) => {
 
     memberships: [],
     tax_exempt: false,
-    price: 1,
+    price: formatCurrency(1),
     participate_sale: false,
     sale_price_type: SALE_PRICE_TYPE_OPTIONS[0].value,
-    sale_price: 0,
+    sale_price: formatCurrency(0),
     arrival_date: '' + moment(Date.now()).format('YYYY-MM-DD'),
     quantity: 1,
 
@@ -123,9 +123,9 @@ const FormProduct = (props: Props) => {
         inventory_tracking: productDetail.inventory_tracking,
         enabled: Boolean(+productDetail.enabled),
         tax_exempt: Boolean(+productDetail.tax_exempt),
-        price: +Number(productDetail.price).toFixed(2),
+        price: formatCurrency(+productDetail.price.toString().replaceAll(',', '')), //+Number(productDetail.price).toFixed(2),
         participate_sale: Boolean(+productDetail.participate_sale),
-        sale_price: +Number(productDetail.sale_price).toFixed(2),
+        sale_price: formatCurrency(+productDetail.sale_price.toString().replaceAll(',', '')), //+Number(productDetail.sale_price).toFixed(2)
         arrival_date: moment(+productDetail.arrival_date * 1000).format('YYYY-MM-DD'),
         facebook_marketing_enabled: Boolean(+productDetail.facebook_marketing_enabled),
         google_feed_enabled: Boolean(+productDetail.google_feed_enabled),
@@ -203,8 +203,8 @@ const FormProduct = (props: Props) => {
           <>
             {values.og_tags_type == 1 ? values.og_tags : (values.og_tags = '')}
             {values.meta_desc_type === 'C' ? values.meta_description : (values.meta_description = '')}
-            {(values.price = formatCurrency(+values.price.toString().replaceAll(',', '')))}
-            {(values.sale_price = formatCurrency(+values.sale_price.toString().replaceAll(',', '')))}
+            {/* {(values.price = formatCurrency(+values.price.toString().replaceAll(',', '')))} */}
+            {/* {(values.sale_price = formatCurrency(+values.sale_price.toString().replaceAll(',', '')))} */}
             <Form>
               <FormInput isRequired label="Vendor">
                 <>
