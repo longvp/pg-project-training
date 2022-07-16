@@ -44,14 +44,18 @@ const UploadImage = (props: Props) => {
     if (!isNaN(+id)) {
       setImageDeleteds((previous) => previous.concat(+id))
     }
-    URL.revokeObjectURL(imageUrls[index].file)
+    if (isNaN(+id)) {
+      URL.revokeObjectURL(imageUrls[index].file)
+    }
   }
 
   // React.useEffect(() => {
   //   return () => {
   //     if (imageUrls && imageUrls.length > 0) {
   //       for (let i = 0; i < imageUrls.length; i++) {
-  //         URL.revokeObjectURL(imageUrls[i].file)
+  //         if (isNaN(+imageUrls[i].id)) {
+  //           URL.revokeObjectURL(imageUrls[i].file)
+  //         }
   //       }
   //     }
   //   }

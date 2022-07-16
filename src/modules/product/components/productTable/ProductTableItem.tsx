@@ -122,7 +122,11 @@ const ProductTableItem = (props: Props) => {
         <td>{product.category}</td>
         <td>{`$${formatCurrency(+product.price)}`}</td>
         <td>{product.amount}</td>
-        <td>{product.vendor}</td>
+        <td>
+          <NavLink to={`/user-detail/${product.vendorID}`} className="link">
+            {product.vendor}
+          </NavLink>
+        </td>
         <td>{+product.arrivalDate > 0 ? moment(+product.arrivalDate * 1000).format('ll') : '---'}</td>
         <td>
           <FontAwesomeIcon className="icon-delete" icon={faTrash} onClick={() => handleSelectedDelete()} />

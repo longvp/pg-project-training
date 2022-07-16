@@ -76,7 +76,7 @@ const FormCreateUser = (props: Props) => {
       >
         {({ values, errors, touched }) => (
           <>
-            {values.access_level == 10 ? (values.roles = []) : values.roles}
+            {values.access_level == 10 && (values.roles = [])}
             <Form>
               {/* FIRST NAME */}
               <FormInput isRequired htmlFor="firstName" label="First Name">
