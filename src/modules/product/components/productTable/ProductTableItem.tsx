@@ -78,7 +78,7 @@ const ProductTableItem = (props: Props) => {
   const handleChangeEnabled = React.useCallback(async () => {
     const json = await dispatch(
       fetchThunk(API_PATHS.productEdit, 'post', {
-        params: [{ id: product.id, enable: +product.enabled == 1 ? 0 : 1 }],
+        params: [{ id: product.id, enable: product.enabled == 1 ? 0 : 1 }],
       }),
     )
     if (json?.success) {
@@ -87,7 +87,7 @@ const ProductTableItem = (props: Props) => {
     } else {
       toast.error(json?.errors)
     }
-  }, [])
+  }, [product])
 
   const showModal = () => {
     dispatch(
