@@ -15,7 +15,7 @@ interface Props {
 const UploadImage = (props: Props) => {
   const { setImagesOrder, setImagesFile, productDetail, setDeletedImages } = props
 
-  const [imgFiles, setImgFiles] = React.useState<any[]>([]) // LƯU FILE ẢNH
+  const [imgFiles, setImgFiles] = React.useState<File[]>([]) // LƯU FILE ẢNH
   const [imageNames, setImageNames] = React.useState<string[]>([]) // LƯU TÊN ẢNH
   const [imageUrls, setImageUrls] = React.useState<IImage[]>([]) // LƯU URL ẢNH
   const [imageDeleteds, setImageDeleteds] = React.useState<number[]>([])
@@ -38,7 +38,7 @@ const UploadImage = (props: Props) => {
     if (index === -1) {
       return
     }
-    setImgFiles(imgFiles.filter((file, i) => i !== index))
+    setImgFiles(imgFiles.filter((file) => file.name !== imageNames[index])) //i !== index &&
     setImageNames(imageNames.filter((name, i) => i !== index))
     setImageUrls(imageUrls.filter((url, i) => i !== index))
     if (!isNaN(+id)) {
@@ -49,17 +49,17 @@ const UploadImage = (props: Props) => {
     }
   }
 
-  // React.useEffect(() => {
-  //   return () => {
-  //     if (imageUrls && imageUrls.length > 0) {
-  //       for (let i = 0; i < imageUrls.length; i++) {
-  //         if (isNaN(+imageUrls[i].id)) {
-  //           URL.revokeObjectURL(imageUrls[i].file)
-  //         }
-  //       }
-  //     }
-  //   }
-  // }, [])
+  React.useEffect(() => {
+    return () => {
+      if (imageUrls && imageUrls.length > 0) {
+        for (let i = 0; i < imageUrls.length; i++) {
+          if (isNaN(+imageUrls[i].id)) {
+            URL.revokeObjectURL(imageUrls[i].file)
+          }
+        }
+      }
+    }
+  }, [])
 
   React.useEffect(() => {
     setImagesOrder(imageNames)
@@ -70,7 +70,7 @@ const UploadImage = (props: Props) => {
   }, [imgFiles])
 
   React.useEffect(() => {
-    if (productDetail.id && productDetail.images) {
+    if (productDetail && productDetail.id && productDetail.images) {
       setImageUrls(
         productDetail.images.map((img) => ({
           id: img?.id,
