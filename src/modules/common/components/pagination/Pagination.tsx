@@ -1,22 +1,26 @@
 import React from 'react'
 import ReactPaginate from 'react-paginate'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { setCurrentPage, setItemPerPage } from '../../redux/userReducer'
 import { AppState } from './../../../../redux/reducer'
-import { LIST_NUMBER_ITEM_PER_PAGE_USER } from './../../utils'
+import './Pagination.scss'
 
-const UserPagination = () => {
+interface Props {
+  LIST_NUMBER_ITEM_PER_PAGE: number[]
+  setCurrentPage(currentPage: number): Action
+  setItemPerPage(itemPerPage: number): Action
+  recordsTotal: number
+  itemPerPage: number
+}
+
+const Pagination = (props: Props) => {
+  const { LIST_NUMBER_ITEM_PER_PAGE, setCurrentPage, setItemPerPage, recordsTotal, itemPerPage } = props
+
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
 
-  const { recordsTotal, itemPerPage } = useSelector((state: AppState) => ({
-    recordsTotal: state.user.recordsTotal,
-    itemPerPage: state.user.itemPerPage,
-  }))
-
   const handleOnChangePage = (data: any) => {
-    dispatch(setCurrentPage(data?.selected + 1))
+    dispatch(setCurrentPage(+data?.selected + 1))
   }
 
   const handleChangeItemPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -51,9 +55,9 @@ const UserPagination = () => {
           <span className="number-highlight">{recordsTotal}</span>
           items
           <select className="number-select" onChange={(e) => handleChangeItemPerPage(e)}>
-            {LIST_NUMBER_ITEM_PER_PAGE_USER &&
-              LIST_NUMBER_ITEM_PER_PAGE_USER.length > 0 &&
-              LIST_NUMBER_ITEM_PER_PAGE_USER.map((number, index) => (
+            {LIST_NUMBER_ITEM_PER_PAGE &&
+              LIST_NUMBER_ITEM_PER_PAGE.length > 0 &&
+              LIST_NUMBER_ITEM_PER_PAGE.map((number, index) => (
                 <option value={number} key={index}>
                   {number}
                 </option>
@@ -66,4 +70,4 @@ const UserPagination = () => {
   )
 }
 
-export default UserPagination
+export default Pagination

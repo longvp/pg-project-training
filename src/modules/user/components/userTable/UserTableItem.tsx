@@ -9,7 +9,6 @@ import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
 import { setUserListSelectedDelete } from './../../redux/userReducer'
 import { NavLink } from 'react-router-dom'
-import { ROUTES } from '../../../../configs/routes'
 
 interface Props {
   user: IUser

@@ -1,31 +1,39 @@
 import React from 'react'
-import { AppState } from '../../../../redux/reducer'
+import { AppState } from '../../../redux/reducer'
 import { ThunkDispatch } from 'redux-thunk'
 import { Action } from 'redux'
-import UserFilter from '../../components/userFilter/UserFilter'
-import UserPagination from '../../components/userPagination/UserPagination'
-import UserTableList from '../../components/userTable/UserTableList'
+import UserFilter from '../components/userFilter/UserFilter'
+import UserTableList from '../components/userTable/UserTableList'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchThunk } from '../../../common/redux/thunk'
-import { API_PATHS } from '../../../../configs/api'
-import { setRecordsTotal, setRoleList, setUserList, setUserListSelectedDelete } from '../../redux/userReducer'
-import Loading from '../../../common/components/loading/Loading'
-import { setCountryList } from '../../redux/userReducer'
-import { IRole } from '../../../../models/role'
-import { setModalContent, setShowModal } from '../../../home/redux/homeReducer'
-import Modal from '../../../common/components/modal/Modal'
-import Footer from '../../../defaultLayout/footer/Footer'
+import { fetchThunk } from '../../common/redux/thunk'
+import { API_PATHS } from '../../../configs/api'
+import {
+  setCurrentPage,
+  setItemPerPage,
+  setRecordsTotal,
+  setRoleList,
+  setUserList,
+  setUserListSelectedDelete,
+} from '../redux/userReducer'
+import Loading from '../../common/components/loading/Loading'
+import { setCountryList } from '../redux/userReducer'
+import { IRole } from '../../../models/role'
+import { setModalContent, setShowModal } from '../../home/redux/homeReducer'
+import Modal from '../../common/components/modal/Modal'
+import Footer from '../../defaultLayout/footer/Footer'
 import { NavLink } from 'react-router-dom'
-import { ROUTES } from '../../../../configs/routes'
-import { setUserInfo } from '../../../auth/redux/authReducer'
+import { ROUTES } from '../../../configs/routes'
+import { setUserInfo } from '../../auth/redux/authReducer'
 import { toast } from 'react-toastify'
+import Pagination from '../../common/components/pagination/Pagination'
+import { LIST_NUMBER_ITEM_PER_PAGE_USER } from '../utils'
 
 const PageManageUser = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
 
-  const { user, currentPage, itemPerPage, filterFieldUser, userListSelectedDelete, isShowModal } = useSelector(
+  const { recordsTotal, currentPage, itemPerPage, filterFieldUser, userListSelectedDelete, isShowModal } = useSelector(
     (state: AppState) => ({
-      user: state.profile.user,
+      recordsTotal: state.user.recordsTotal,
       currentPage: state.user.currentPage,
       itemPerPage: state.user.itemPerPage,
       filterFieldUser: state.user.filterFieldUser,
@@ -144,7 +152,14 @@ const PageManageUser = () => {
         </NavLink>
         {/* TABLE */}
         <UserTableList />
-        <UserPagination />
+        {/* PAGINATION */}
+        <Pagination
+          LIST_NUMBER_ITEM_PER_PAGE={LIST_NUMBER_ITEM_PER_PAGE_USER}
+          setCurrentPage={setCurrentPage}
+          setItemPerPage={setItemPerPage}
+          recordsTotal={recordsTotal}
+          itemPerPage={itemPerPage}
+        />
         <Footer>
           <button
             className={`btn-footer ${userListSelectedDelete.length > 0 ? '' : 'btn-footer-disabled'}`}

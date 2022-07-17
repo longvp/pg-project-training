@@ -1,7 +1,12 @@
 import { ROUTES } from '../../../configs/routes'
-import { faTag, faUserGroup } from '@fortawesome/free-solid-svg-icons'
+import { faInbox, faTag, faUserGroup } from '@fortawesome/free-solid-svg-icons'
 
 export const MENU_SIDEBAR = [
+  {
+    iconModel: faInbox,
+    name: 'Order',
+    sub_menus: [{ name: 'Order list', link: ROUTES.manageOrder }],
+  },
   {
     iconModel: faTag,
     name: 'Catalog',

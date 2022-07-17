@@ -1,0 +1,1 @@
+export const LIST_NUMBER_ITEM_PER_PAGE_ORDER = [10, 25, 50, 75, 100]

@@ -2,38 +2,41 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { ThunkDispatch } from 'redux-thunk'
-import { ROUTES } from '../../../../configs/routes'
-import { AppState } from '../../../../redux/reducer'
+import { ROUTES } from '../../../configs/routes'
+import { AppState } from '../../../redux/reducer'
 import { Action } from 'redux'
-import Footer from '../../../defaultLayout/footer/Footer'
-import ProductFilter from '../../components/productFilter/ProductFilter'
-import ProductTableList from '../../components/productTable/ProductTableList'
-import { fetchThunk } from '../../../common/redux/thunk'
-import { API_PATHS } from '../../../../configs/api'
-import Loading from '../../../common/components/loading/Loading'
+import Footer from '../../defaultLayout/footer/Footer'
+import ProductFilter from '../components/productFilter/ProductFilter'
+import ProductTableList from '../components/productTable/ProductTableList'
+import { fetchThunk } from '../../common/redux/thunk'
+import { API_PATHS } from '../../../configs/api'
+import Loading from '../../common/components/loading/Loading'
 import {
   setCategoryList,
+  setCurrentPage,
+  setItemPerPage,
   setProductList,
   setProductListSelectedDelete,
   setRecordsTotal,
-} from '../../redux/productReducer'
-import ProductPagination from '../../components/productPagination/ProductPagination'
-import { setModalContent, setShowModal } from '../../../home/redux/homeReducer'
-import Modal from '../../../common/components/modal/Modal'
+} from '../redux/productReducer'
+import { setModalContent, setShowModal } from '../../home/redux/homeReducer'
+import Modal from '../../common/components/modal/Modal'
 import { toast } from 'react-toastify'
+import Pagination from '../../common/components/pagination/Pagination'
+import { LIST_NUMBER_ITEM_PER_PAGE_PRODUCT } from '../utils'
 
 const PageManageProduct = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
 
-  const { currentPage, itemPerPage, filterFieldProduct, productListSelectedDelete, isShowModal } = useSelector(
-    (state: AppState) => ({
+  const { recordsTotal, currentPage, itemPerPage, filterFieldProduct, productListSelectedDelete, isShowModal } =
+    useSelector((state: AppState) => ({
+      recordsTotal: state.product.recordsTotal,
       currentPage: state.product.currentPage,
       itemPerPage: state.product.itemPerPage,
       filterFieldProduct: state.product.filterFieldProduct,
       productListSelectedDelete: state.product.productListSelectedDelete,
       isShowModal: state.home.isShowModal,
-    }),
-  )
+    }))
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
@@ -119,7 +122,14 @@ const PageManageProduct = () => {
         </NavLink>
         {/* TABLE */}
         <ProductTableList />
-        <ProductPagination />
+        {/* PAGINATION */}
+        <Pagination
+          LIST_NUMBER_ITEM_PER_PAGE={LIST_NUMBER_ITEM_PER_PAGE_PRODUCT}
+          setCurrentPage={setCurrentPage}
+          setItemPerPage={setItemPerPage}
+          recordsTotal={recordsTotal}
+          itemPerPage={itemPerPage}
+        />
         <Footer>
           <button
             className={`btn-footer ${productListSelectedDelete.length > 0 ? '' : 'btn-footer-disabled'}`}

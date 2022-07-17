@@ -1,4 +1,3 @@
-import { Field } from 'formik'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { SingleValue } from 'react-select'

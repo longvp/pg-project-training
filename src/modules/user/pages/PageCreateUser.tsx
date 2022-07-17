@@ -1,16 +1,16 @@
 import React from 'react'
-import FormCreateUser from '../../components/formCreateUser/FormCreateUser'
-import { IUserCreateUpdate } from '../../../../models/user'
+import FormCreateUser from '../components/formCreateUser/FormCreateUser'
+import { IUserCreateUpdate } from '../../../models/user'
 import { useDispatch } from 'react-redux'
-import { AppState } from '../../../../redux/reducer'
+import { AppState } from '../../../redux/reducer'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { fetchThunk } from '../../../common/redux/thunk'
-import { API_PATHS } from '../../../../configs/api'
+import { fetchThunk } from '../../common/redux/thunk'
+import { API_PATHS } from '../../../configs/api'
 import { toast } from 'react-toastify'
 import { useHistory } from 'react-router'
-import { ROUTES } from '../../../../configs/routes'
-import BackPage from '../../../common/components/backPage/BackPage'
+import { ROUTES } from '../../../configs/routes'
+import BackPage from '../../common/components/backPage/BackPage'
 
 const PageCreateUser = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
