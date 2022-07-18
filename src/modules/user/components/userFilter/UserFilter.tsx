@@ -12,7 +12,7 @@ import { ICountry } from './../../../../models/country'
 import { IRole } from '../../../../models/role'
 import { IOption } from '../../../../models/option'
 import { MEMBERSHIP_FILTER_OPTION, STATUS_OPTIONS } from '../../utils'
-import FilterRangeDate from './FilterRangeDate'
+import FilterRangeDate from '../../../common/components/filterRangeDate/FilterRangeDate'
 
 const UserFilter = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()

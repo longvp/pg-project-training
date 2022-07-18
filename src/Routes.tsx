@@ -6,9 +6,7 @@ import DefaulLayout from './modules/defaultLayout/DefaultLayout'
 
 const LoginPage = lazy(() => import('./modules/auth/pages/LoginPage'))
 
-interface Props {}
-
-export const Routes = (props: Props) => {
+export const Routes = () => {
   const location = useLocation()
 
   return (

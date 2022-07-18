@@ -29,7 +29,7 @@ function getBaseUrl(service: APIService) {
 
 export const API_PATHS = {
   signIn: `${getBaseUrl(APIService.auth)}/login`,
-  // userProfile: `${getBaseUrl(APIService.public)}/user`,
+
   countryList: `${getBaseUrl(APIService.apiAdmin)}/commons/country`,
   roleList: `${getBaseUrl(APIService.apiAdmin)}/commons/role`,
   userList: `${getBaseUrl(APIService.apiAdmin)}/users/list`,
@@ -47,4 +47,7 @@ export const API_PATHS = {
   uploadImage: `${getBaseUrl(APIService.api)}/products/upload-image`,
   productDetail: `${getBaseUrl(APIService.apiAdmin)}/products/detail`,
   productEdit: `${getBaseUrl(APIService.apiAdmin)}/products/edit`,
+  shippingList: `${getBaseUrl(APIService.apiAdmin)}/shipping/list`,
+
+  orderList: `${getBaseUrl(APIService.apiAdmin)}/orders/list`,
 }

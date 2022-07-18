@@ -2,9 +2,7 @@ import React from 'react'
 import { MENU_SIDEBAR } from '../utils'
 import MenuMainItemSidebar from './MenuMainItemSidebar'
 
-interface Props {}
-
-const MenuSidebar = (props: Props) => {
+const MenuSidebar = () => {
   return (
     <>
       {MENU_SIDEBAR && MENU_SIDEBAR.length > 0 && (

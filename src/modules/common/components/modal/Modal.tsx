@@ -6,10 +6,7 @@ import { Action } from 'redux'
 import './Modal.scss'
 import { setShowModal } from '../../../home/redux/homeReducer'
 
-interface Props {}
-
-const Modal = (props: Props) => {
-  // const { title, text, handleAction } = props
+const Modal = () => {
   const { modalContent } = useSelector((state: AppState) => ({
     modalContent: state.home.modalContent,
   }))

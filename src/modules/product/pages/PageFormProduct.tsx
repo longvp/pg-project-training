@@ -1,14 +1,14 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { IProductCreate, IShippingZone } from '../../../models/product'
+import { IProductCreate } from '../../../models/product'
 import { AppState } from '../../../redux/reducer'
 import { Action } from 'redux'
 import BackPage from '../../common/components/backPage/BackPage'
 import FormProduct from '../components/formProduct/FormProduct'
 import { fetchThunk } from '../../common/redux/thunk'
 import { API_PATHS } from '../../../configs/api'
-import { setBrandList, setCategoryList } from '../redux/productReducer'
+import { setBrandList, setCategoryList, setShippingsAPI } from '../redux/productReducer'
 import { setCountryList } from '../../user/redux/userReducer'
 import { toast } from 'react-toastify'
 import Loading from '../../common/components/loading/Loading'
@@ -16,6 +16,7 @@ import { useHistory, useParams } from 'react-router'
 import { STATUS_ACTION } from '../utils'
 import { ROUTES } from '../../../configs/routes'
 import { dateFormat } from '../../../utils'
+import { IShippingZone } from '../../../models/shippingZone'
 
 const PageFormProduct = () => {
   // ---------------------------- CREATE PRODUCT ------------------------------------
@@ -95,10 +96,21 @@ const PageFormProduct = () => {
     setLoading(false)
   }, [])
 
+  // ------------- GET SHIPPING API LIST -----
+  const getShippingList = React.useCallback(async () => {
+    setLoading(true)
+    const json = await dispatch(fetchThunk(API_PATHS.shippingList, 'get'))
+    if (json?.success) {
+      dispatch(setShippingsAPI(json.data))
+    }
+    setLoading(false)
+  }, [])
+
   React.useEffect(() => {
     getBrandList()
     getCategoryList()
     getCountryList()
+    getShippingList()
   }, [])
 
   // ---------------------------- DETAIL PRODUCT ------------------------------------

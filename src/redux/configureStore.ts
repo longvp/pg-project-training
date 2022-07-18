@@ -16,7 +16,7 @@ const composeEnhancers =
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['home', 'user', 'product'],
+  blacklist: ['home', 'user', 'product', 'order'],
 }
 
 export default function configureStore(preloadedState: any) {

@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from 'formik'
 import React from 'react'
-import { IProductCreate, IShippingZone } from '../../../../models/product'
+import { IProductCreate } from '../../../../models/product'
 import Footer from '../../../defaultLayout/footer/Footer'
 import VendorField from '../vendorField/VendorField'
 import * as yup from 'yup'
@@ -25,6 +25,7 @@ import FormInput from '../../../common/components/formInput/FormInput'
 import { NavLink } from 'react-router-dom'
 import Shipping from './shipping/ShippingList'
 import { formatCurrency } from './../../../../utils/index'
+import { IShippingZone } from '../../../../models/shippingZone'
 
 interface Props {
   loading: boolean

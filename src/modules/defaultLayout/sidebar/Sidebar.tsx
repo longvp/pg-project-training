@@ -4,9 +4,7 @@ import { AppState } from '../../../redux/reducer'
 import MenuSidebar from './menuSidebar/MenuSidebar'
 import './Sidebar.scss'
 
-interface Props {}
-
-const Sidebar = (props: Props) => {
+const Sidebar = () => {
   const { isToggleSidebar } = useSelector((state: AppState) => ({
     isToggleSidebar: state.home.isToggleSidebar,
   }))

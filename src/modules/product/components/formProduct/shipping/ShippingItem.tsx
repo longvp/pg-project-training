@@ -1,6 +1,6 @@
 import React from 'react'
 import { IOption } from '../../../../../models/option'
-import { IShippingZone } from '../../../../../models/product'
+import { IShippingZone } from '../../../../../models/shippingZone'
 import FormInput from '../../../../common/components/formInput/FormInput'
 import { formatCurrency } from './../../../../../utils/index'
 

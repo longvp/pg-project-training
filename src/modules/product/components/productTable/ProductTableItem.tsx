@@ -24,13 +24,12 @@ const ProductTableItem = (props: Props) => {
 
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
 
-  const { productListSelectedDelete, currentPage, itemPerPage, filterFieldProduct, isShowModal } = useSelector(
+  const { productListSelectedDelete, currentPage, itemPerPage, filterFieldProduct } = useSelector(
     (state: AppState) => ({
       productListSelectedDelete: state.product.productListSelectedDelete,
       currentPage: state.product.currentPage,
       itemPerPage: state.product.itemPerPage,
       filterFieldProduct: state.product.filterFieldProduct,
-      isShowModal: state.home.isShowModal,
     }),
   )
 

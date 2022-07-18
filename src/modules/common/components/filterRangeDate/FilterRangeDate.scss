@@ -4,6 +4,7 @@
     border: 1px solid $black;
     padding: 7px 10px;
     border-radius: 5px;
+    width: max-content !important;
     input{
         color: white !important;
         &::placeholder {

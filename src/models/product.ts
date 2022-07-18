@@ -1,3 +1,5 @@
+import { IShippingZone } from './shippingZone'
+
 export interface IProduct {
   amount: number | string
   arrivalDate: number | string
@@ -30,12 +32,6 @@ export interface IFilterFieldProduct {
 export interface IProductDelete {
   id: number | string
   delete: number | string
-}
-
-export interface IShippingZone {
-  id: string | number // ID COUNTRY
-  price: string | number // PRICE
-  zone_name?: string
 }
 
 export interface IImage {

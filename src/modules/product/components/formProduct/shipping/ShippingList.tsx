@@ -6,8 +6,9 @@ import { IOption } from '../../../../../models/option'
 import { AppState } from '../../../../../redux/reducer'
 import FormInput from '../../../../common/components/formInput/FormInput'
 import Select from 'react-select'
-import { IProductCreate, IShippingZone } from '../../../../../models/product'
+import { IProductCreate } from '../../../../../models/product'
 import ShippingItem from './ShippingItem'
+import { IShippingZone } from '../../../../../models/shippingZone'
 
 interface Props {
   setShippingZone(list: IShippingZone[]): void
@@ -21,7 +22,7 @@ const ShippingList = (props: Props) => {
     countryList: state.user.countryList,
   }))
 
-  //-------- BUILD COUNTRY OPTION ---------
+  //-------- BUILD SHIPPING OPTIONS ---------
   const [countrySelected, setCountrySelected] = React.useState<SingleValue<IOption>>({
     label: 'Select new zone',
     value: '',

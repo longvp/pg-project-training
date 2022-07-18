@@ -1,7 +1,7 @@
 import { faBars, faCircleArrowDown, faEnvelope, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { ROUTES } from '../../../configs/routes'
 import './Header.scss'
 import Cookies from 'js-cookie'
@@ -12,16 +12,12 @@ import { ThunkDispatch } from 'redux-thunk'
 import { AppState } from '../../../redux/reducer'
 import { Action } from 'redux'
 import { removeUserInfo } from '../../auth/redux/authReducer'
-import _ from 'lodash'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { setModalContent, setShowModal, setToggleSidebar } from '../../home/redux/homeReducer'
 import Modal from '../../common/components/modal/Modal'
 
-interface Props {}
-
-function Header(props: Props) {
+function Header() {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
-  const history = useHistory()
 
   const { user, isShowModal } = useSelector((state: AppState) => ({
     user: state.profile.user,

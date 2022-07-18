@@ -6,6 +6,7 @@ import intlReducer, { IntlState } from '../modules/intl/redux/intlReducer'
 import homeReducer, { HomeState } from '../modules/home/redux/homeReducer'
 import userReducer, { UserState } from '../modules/user/redux/userReducer'
 import productReducer, { ProductState } from '../modules/product/redux/productReducer'
+import orderReducer, { OrderState } from '../modules/order/redux/orderReducer'
 
 export interface AppState {
   router: RouterState
@@ -14,6 +15,7 @@ export interface AppState {
   home: HomeState
   user: UserState
   product: ProductState
+  order: OrderState
 }
 
 export default function createRootReducer(history: History) {
@@ -24,5 +26,6 @@ export default function createRootReducer(history: History) {
     home: homeReducer,
     user: userReducer,
     product: productReducer,
+    order: orderReducer,
   })
 }

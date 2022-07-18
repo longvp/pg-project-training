@@ -3,6 +3,7 @@ import { ICategory } from '../../../models/category'
 import { IFilterFieldProduct, IProduct, IProductDelete } from '../../../models/product'
 import { LIST_NUMBER_ITEM_PER_PAGE_PRODUCT } from '../utils'
 import { IBrand } from './../../../models/brand'
+import { IShippingZone } from './../../../models/shippingZone'
 
 export interface ProductState {
   productList: IProduct[]
@@ -13,6 +14,7 @@ export interface ProductState {
   filterFieldProduct: IFilterFieldProduct
   productListSelectedDelete: IProductDelete[]
   brandList: IBrand[]
+  shippingsAPI: IShippingZone[]
 }
 
 const initialState = {
@@ -33,6 +35,7 @@ const initialState = {
   },
   productListSelectedDelete: [],
   brandList: [],
+  shippingsAPI: [],
 }
 
 export const setProductList = createCustomAction('product/setProductList', (data: IProduct[]) => ({
@@ -55,9 +58,12 @@ export const setCategoryList = createCustomAction('product/setCategoryList', (da
   data,
 }))
 
-export const setFilterFieldProduct = createCustomAction('user/setFilterFieldProduct', (data: IFilterFieldProduct) => ({
-  data,
-}))
+export const setFilterFieldProduct = createCustomAction(
+  'product/setFilterFieldProduct',
+  (data: IFilterFieldProduct) => ({
+    data,
+  }),
+)
 
 export const setProductListSelectedDelete = createCustomAction(
   'product/setProductListSelectedDelete',
@@ -70,6 +76,10 @@ export const setBrandList = createCustomAction('product/setBrandList', (data: IB
   data,
 }))
 
+export const setShippingsAPI = createCustomAction('product/setShippingsAPI', (data: IShippingZone[]) => ({
+  data,
+}))
+
 const actions = {
   setProductList,
   setRecordsTotal,
@@ -79,6 +89,7 @@ const actions = {
   setFilterFieldProduct,
   setProductListSelectedDelete,
   setBrandList,
+  setShippingsAPI,
 }
 
 type Action = ActionType<typeof actions>
@@ -101,6 +112,8 @@ export default function reducer(state: ProductState = initialState, action: Acti
       return { ...state, productListSelectedDelete: action.data }
     case getType(setBrandList):
       return { ...state, brandList: action.data }
+    case getType(setShippingsAPI):
+      return { ...state, shippingsAPI: action.data }
     default:
       return state
   }
