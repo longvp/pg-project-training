@@ -1,14 +1,5 @@
 import React, { lazy } from 'react'
 
-// const HomePage = lazy(() => import('../modules/home/pages/HomePage'))
-
-// const PageManageUser = lazy(() => import('../modules/user/pages/PageManageUser'))
-// const PageCreateUser = lazy(() => import('../modules/user/pages/PageCreateUser'))
-// const PageUserDetail = lazy(() => import('./../modules/user/pages/pageUserDetail/PageUserDetail'))
-
-// const PageManageProduct = lazy(() => import('../modules/product/pages/PageManageProduct'))
-// const PageFormProduct = lazy(() => import('../modules/product/pages/PageFormProduct'))
-
 import HomePage from '../modules/home/pages/HomePage'
 
 import PageManageUser from '../modules/user/pages/PageManageUser'
