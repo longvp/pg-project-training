@@ -16,7 +16,7 @@ import { useHistory, useParams } from 'react-router'
 import { STATUS_ACTION } from '../utils'
 import { ROUTES } from '../../../configs/routes'
 import { dateFormat } from '../../../utils'
-import { IShippingZone } from '../../../models/shippingZone'
+import { IShippingZone } from '../../../models/shipping'
 
 const PageFormProduct = () => {
   // ---------------------------- CREATE PRODUCT ------------------------------------

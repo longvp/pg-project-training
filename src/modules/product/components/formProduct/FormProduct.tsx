@@ -25,7 +25,7 @@ import FormInput from '../../../common/components/formInput/FormInput'
 import { NavLink } from 'react-router-dom'
 import Shipping from './shipping/ShippingList'
 import { formatCurrency } from './../../../../utils/index'
-import { IShippingZone } from '../../../../models/shippingZone'
+import { IShippingZone } from '../../../../models/shipping'
 
 interface Props {
   loading: boolean

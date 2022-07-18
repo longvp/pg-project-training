@@ -3,7 +3,7 @@ import { ICategory } from '../../../models/category'
 import { IFilterFieldProduct, IProduct, IProductDelete } from '../../../models/product'
 import { LIST_NUMBER_ITEM_PER_PAGE_PRODUCT } from '../utils'
 import { IBrand } from './../../../models/brand'
-import { IShippingZone } from './../../../models/shippingZone'
+import { IShipping } from '../../../models/shipping'
 
 export interface ProductState {
   productList: IProduct[]
@@ -14,7 +14,7 @@ export interface ProductState {
   filterFieldProduct: IFilterFieldProduct
   productListSelectedDelete: IProductDelete[]
   brandList: IBrand[]
-  shippingsAPI: IShippingZone[]
+  shippingsAPI: IShipping[]
 }
 
 const initialState = {
@@ -76,7 +76,7 @@ export const setBrandList = createCustomAction('product/setBrandList', (data: IB
   data,
 }))
 
-export const setShippingsAPI = createCustomAction('product/setShippingsAPI', (data: IShippingZone[]) => ({
+export const setShippingsAPI = createCustomAction('product/setShippingsAPI', (data: IShipping[]) => ({
   data,
 }))
 

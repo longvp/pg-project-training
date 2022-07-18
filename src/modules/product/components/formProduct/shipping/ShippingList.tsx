@@ -1,14 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { SingleValue } from 'react-select'
-import { ICountry } from '../../../../../models/country'
 import { IOption } from '../../../../../models/option'
 import { AppState } from '../../../../../redux/reducer'
 import FormInput from '../../../../common/components/formInput/FormInput'
 import Select from 'react-select'
 import { IProductCreate } from '../../../../../models/product'
 import ShippingItem from './ShippingItem'
-import { IShippingZone } from '../../../../../models/shippingZone'
+import { IShipping, IShippingZone } from '../../../../../models/shipping'
 
 interface Props {
   setShippingZone(list: IShippingZone[]): void
@@ -18,36 +17,35 @@ interface Props {
 const ShippingList = (props: Props) => {
   const { setShippingZone, productDetail } = props
 
-  const { countryList } = useSelector((state: AppState) => ({
-    countryList: state.user.countryList,
+  const { shippingsAPI } = useSelector((state: AppState) => ({
+    shippingsAPI: state.product.shippingsAPI,
   }))
 
   //-------- BUILD SHIPPING OPTIONS ---------
-  const [countrySelected, setCountrySelected] = React.useState<SingleValue<IOption>>({
+  const [shippingSelected, setShippingSelected] = React.useState<SingleValue<IOption>>({
     label: 'Select new zone',
     value: '',
   })
-  const [countryOptions, setCountryOptions] = React.useState<IOption[]>([])
+  const [shippingOptions, setShippingOptions] = React.useState<IOption[]>([])
 
-  const buildCountryOptions = (countryList: ICountry[]) => {
+  const buildShippingOptions = (shippings: IShipping[]) => {
     const result: IOption[] = []
-    result.push({ label: 'Select new zone', value: '' })
-    if (countryList && countryList.length > 0) {
-      countryList.map((c) => {
-        result.push({ label: c.country, value: `${c.id}` })
+    if (shippings && shippings.length > 0) {
+      shippings.map((s) => {
+        result.push({ label: s.name, value: `${s.id}` })
       })
     }
     return result
   }
 
   React.useEffect(() => {
-    if (countryList && countryList.length > 0) {
-      setCountryOptions(buildCountryOptions(countryList))
+    if (shippingsAPI && shippingsAPI.length > 0) {
+      setShippingOptions(buildShippingOptions(shippingsAPI))
     }
-  }, [countryList])
+  }, [shippingsAPI])
 
-  const handleChangeCountrySelect = (e: SingleValue<IOption>) => {
-    setCountrySelected(e)
+  const handleChangeShippingSelect = (e: SingleValue<IOption>) => {
+    setShippingSelected(e)
   }
 
   // ------------- SHIPPING ZONE -------------------
@@ -64,22 +62,34 @@ const ShippingList = (props: Props) => {
   }, [shippingList])
 
   const handleAddShipping = () => {
-    if (countrySelected && countrySelected.value) {
+    if (shippingSelected && !isNaN(+shippingSelected.value)) {
       setShippingList((previous) =>
         previous.concat({
-          id: countrySelected.value,
+          id: shippingSelected.value,
           price: 0,
-          zone_name: countrySelected.label,
+          zone_name: shippingSelected.label,
         }),
       )
-      setCountryOptions(countryOptions.filter((c) => c.value !== countrySelected.value))
-      setCountrySelected(countryOptions[0])
+      setShippingOptions(shippingOptions.filter((s) => s.value !== shippingSelected.value))
+      setShippingSelected(shippingOptions[0])
     }
   }
 
+  // --------------- WHEN EXIST productDetail ------------
   React.useEffect(() => {
     if (productDetail && productDetail.id && productDetail.shipping) {
-      setShippingList(productDetail.shipping)
+      const shippingProductDetail: IShippingZone[] = productDetail.shipping
+      const newShippingOptions: IOption[] = shippingOptions
+
+      for (let i = 0; i < shippingProductDetail.length; i++) {
+        for (let j = 0; j < newShippingOptions.length; j++) {
+          if (shippingProductDetail[i].id == newShippingOptions[j].value) {
+            newShippingOptions.splice(j, 1)
+          }
+        }
+      }
+      setShippingList(shippingProductDetail)
+      setShippingOptions(newShippingOptions)
     }
   }, [productDetail])
 
@@ -94,8 +104,8 @@ const ShippingList = (props: Props) => {
             shipItem={s}
             setShippingList={setShippingList}
             shippingList={shippingList}
-            countryOptions={countryOptions}
-            setCountryOptions={setCountryOptions}
+            shippingOptions={shippingOptions}
+            setShippingOptions={setShippingOptions}
           />
         ))}
       {/* SELECT ZONE */}
@@ -103,11 +113,11 @@ const ShippingList = (props: Props) => {
         <>
           <Select
             placeholder="Select zone"
-            value={countrySelected}
-            options={countryOptions}
-            onChange={(e) => handleChangeCountrySelect(e)}
+            value={shippingSelected}
+            options={shippingOptions}
+            onChange={(e) => handleChangeShippingSelect(e)}
           />
-          {countrySelected?.value && (
+          {shippingSelected?.value && !isNaN(+shippingSelected?.value) && (
             <span
               className="my-2"
               style={{ cursor: 'pointer', width: 'max-content', color: 'orange' }}

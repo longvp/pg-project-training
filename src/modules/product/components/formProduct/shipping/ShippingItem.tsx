@@ -1,6 +1,6 @@
 import React from 'react'
 import { IOption } from '../../../../../models/option'
-import { IShippingZone } from '../../../../../models/shippingZone'
+import { IShippingZone } from '../../../../../models/shipping'
 import FormInput from '../../../../common/components/formInput/FormInput'
 import { formatCurrency } from './../../../../../utils/index'
 
@@ -8,12 +8,12 @@ interface Props {
   shipItem: IShippingZone
   shippingList: IShippingZone[]
   setShippingList(listShipping: IShippingZone[]): void
-  countryOptions: IOption[]
-  setCountryOptions(listCountry: IOption[]): void
+  shippingOptions: IOption[]
+  setShippingOptions(listOption: IOption[]): void
 }
 
 const ShippingItem = (props: Props) => {
-  const { shipItem, shippingList, setShippingList, countryOptions, setCountryOptions } = props
+  const { shipItem, shippingList, setShippingList, shippingOptions, setShippingOptions } = props
 
   const [shipPrice, setShipPrice] = React.useState<number | string>(0)
 
@@ -36,8 +36,8 @@ const ShippingItem = (props: Props) => {
 
   const handleRemoveShipping = () => {
     setShippingList(shippingList.filter((s) => s.id !== shipItem.id))
-    setCountryOptions(
-      countryOptions.concat({
+    setShippingOptions(
+      shippingOptions.concat({
         label: shipItem.zone_name || '',
         value: `${shipItem.id}` || '',
       }),

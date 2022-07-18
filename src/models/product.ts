@@ -1,4 +1,4 @@
-import { IShippingZone } from './shippingZone'
+import { IShippingZone } from './shipping'
 
 export interface IProduct {
   amount: number | string
