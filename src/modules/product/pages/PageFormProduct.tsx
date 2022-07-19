@@ -231,7 +231,7 @@ const PageFormProduct = () => {
       const json = await dispatch(fetchThunk(API_PATHS.productCreate, 'post', formData, true, 'multipart/form-data'))
       // ------------- UPLOAD IMAGE -----------------
       if (json?.success) {
-        if (imagesOrder.length > 0) {
+        if (imagesFile.length > 0) {
           const formDataImage = new FormData()
           formDataImage.append('productId', json?.data)
           for (let i = 0; i < imagesFile.length; i++) {
