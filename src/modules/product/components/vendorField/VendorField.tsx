@@ -81,6 +81,7 @@ const VendorField = (props: Props) => {
           placeholder="Vendor name"
           name="search"
           value={searchValue}
+          autoComplete="off"
           onChange={(e) => handleChangeInput(e)}
         />
         {searchValue && !isLoading && (

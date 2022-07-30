@@ -199,12 +199,6 @@ const ProductFilter = () => {
             options={AVAILABILITY_OPTIONS}
             onChange={(e) => handleChangeAvailabilitySelect(e)}
           />
-          <Select
-            placeholder="Any availability status"
-            value={availabilitySelected}
-            options={AVAILABILITY_OPTIONS}
-            onChange={(e) => handleChangeAvailabilitySelect(e)}
-          />
           <VendorField handleChangeVendor={handleChangeVendor} />
         </div>
       </div>
